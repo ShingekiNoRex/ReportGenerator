@@ -1,0 +1,75 @@
+﻿using System;
+using System.IO;
+using System.Windows.Forms;
+
+namespace ReportGenerator
+{
+	public partial class Form_AddTask : Form
+	{
+		private bool _isEditorMode = false;
+
+		public Form_AddTask()
+		{
+			Initialize();
+		}
+
+		public Form_AddTask(string title, TaskItem taskItem)
+		{
+			Initialize();
+
+			_isEditorMode = true;
+			this.Text = "Edit Task";
+			button_add.Text = "Confirm";
+			comboBox_title.Text = title;
+			textBox_content.Text = taskItem.content;
+			textBox_time.Text = taskItem.time.ToString();
+			textBox_comment.Text = taskItem.comment;
+		}
+
+		private void Initialize()
+		{
+			InitializeComponent();
+			if (FormReference.MainForm.CategoriesCollection != null)
+			{
+				foreach (Category category in FormReference.MainForm.CategoriesCollection)
+				{
+					comboBox_title.Items.Add(category.title);
+				}
+			}
+		}
+
+		private void OnCancel(object sender, EventArgs e)
+		{
+			if (_isEditorMode)
+				this.DialogResult = DialogResult.Cancel;
+			else
+				this.Hide();
+		}
+
+		private void TaskTime_OnKeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar != '\b' && !char.IsDigit(e.KeyChar))
+				e.Handled = true;
+		}
+
+		private void AddTask_OnClick(object sender, EventArgs e)
+		{
+			if (string.IsNullOrWhiteSpace(comboBox_title.Text) || string.IsNullOrWhiteSpace(textBox_content.Text) || string.IsNullOrWhiteSpace(textBox_time.Text))
+			{
+				MessageBox.Show("Missing time, title or content.", "Error");
+			}
+			else
+			{
+				if (_isEditorMode)
+				{
+					this.DialogResult = DialogResult.OK;
+				}
+				else
+				{
+					int.TryParse(textBox_time.Text, out int time);
+					FormReference.MainForm.AddTask(comboBox_title.Text, textBox_content.Text, time, textBox_comment.Text);
+				}
+			}
+		}
+	}
+}
