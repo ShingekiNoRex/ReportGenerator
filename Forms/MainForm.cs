@@ -588,19 +588,30 @@ namespace ReportGenerator
 				dateTimePicker_to.Value = dateTimePicker_from.Value;
 			}
 
-			int buildInfoIndex = new List<BuildInfo>(BuildInfoCollection).FindIndex(x => x.Equals(report.buildInfo));
-			if (buildInfoIndex < 0)
+			if (BuildInfoCollection == null)
 			{
-				BuildInfo[] newCollection = new BuildInfo[BuildInfoCollection.Length + 1];
-				BuildInfoCollection.CopyTo(newCollection, 0);
-				newCollection[BuildInfoCollection.Length] = report.buildInfo;
-				BuildInfoCollection = newCollection;
+				BuildInfoCollection = new BuildInfo[1];
+				BuildInfoCollection[0] = report.buildInfo;
 
 				comboBox_buildinfo.Items.Add(report.buildInfo.branch + "." + report.buildInfo.build + " CL " + report.buildInfo.cl + " " + report.buildInfo.environment);
 				comboBox_buildinfo.SelectedIndex = comboBox_buildinfo.Items.Count - 1;
 			}
 			else
-				comboBox_buildinfo.SelectedIndex = buildInfoIndex;
+			{
+				int buildInfoIndex = new List<BuildInfo>(BuildInfoCollection).FindIndex(x => x.Equals(report.buildInfo));
+				if (buildInfoIndex < 0)
+				{
+					BuildInfo[] newCollection = new BuildInfo[BuildInfoCollection.Length + 1];
+					BuildInfoCollection.CopyTo(newCollection, 0);
+					newCollection[BuildInfoCollection.Length] = report.buildInfo;
+					BuildInfoCollection = newCollection;
+
+					comboBox_buildinfo.Items.Add(report.buildInfo.branch + "." + report.buildInfo.build + " CL " + report.buildInfo.cl + " " + report.buildInfo.environment);
+					comboBox_buildinfo.SelectedIndex = comboBox_buildinfo.Items.Count - 1;
+				}
+				else
+					comboBox_buildinfo.SelectedIndex = buildInfoIndex;
+			}
 
 			textBox_installTime.Text = report.installTime.ToString();
 
