@@ -40,6 +40,8 @@ namespace ReportGenerator
 			this.button_cancel = new System.Windows.Forms.Button();
 			this.label_title = new System.Windows.Forms.Label();
 			this.comboBox_title = new System.Windows.Forms.ComboBox();
+			this.label_result = new System.Windows.Forms.Label();
+			this.comboBox_result = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// label_content
@@ -64,7 +66,7 @@ namespace ReportGenerator
 			// 
 			this.label_time.AutoSize = true;
 			this.label_time.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.label_time.Location = new System.Drawing.Point(218, 8);
+			this.label_time.Location = new System.Drawing.Point(218, 111);
 			this.label_time.Name = "label_time";
 			this.label_time.Size = new System.Drawing.Size(55, 22);
 			this.label_time.TabIndex = 2;
@@ -73,7 +75,7 @@ namespace ReportGenerator
 			// textBox_time
 			// 
 			this.textBox_time.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.textBox_time.Location = new System.Drawing.Point(218, 33);
+			this.textBox_time.Location = new System.Drawing.Point(218, 137);
 			this.textBox_time.Name = "textBox_time";
 			this.textBox_time.Size = new System.Drawing.Size(90, 24);
 			this.textBox_time.TabIndex = 3;
@@ -85,7 +87,7 @@ namespace ReportGenerator
 			// 
 			this.label_minutes.AutoSize = true;
 			this.label_minutes.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.label_minutes.Location = new System.Drawing.Point(314, 36);
+			this.label_minutes.Location = new System.Drawing.Point(314, 142);
 			this.label_minutes.Name = "label_minutes";
 			this.label_minutes.Size = new System.Drawing.Size(76, 19);
 			this.label_minutes.TabIndex = 4;
@@ -94,24 +96,24 @@ namespace ReportGenerator
 			// label_comment
 			// 
 			this.label_comment.AutoSize = true;
-			this.label_comment.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label_comment.Location = new System.Drawing.Point(12, 111);
+			this.label_comment.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.label_comment.Location = new System.Drawing.Point(12, 164);
 			this.label_comment.Name = "label_comment";
-			this.label_comment.Size = new System.Drawing.Size(160, 20);
+			this.label_comment.Size = new System.Drawing.Size(167, 19);
 			this.label_comment.TabIndex = 5;
 			this.label_comment.Text = "Comment (optional):";
 			// 
 			// textBox_comment
 			// 
 			this.textBox_comment.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.textBox_comment.Location = new System.Drawing.Point(12, 135);
+			this.textBox_comment.Location = new System.Drawing.Point(12, 187);
 			this.textBox_comment.Name = "textBox_comment";
 			this.textBox_comment.Size = new System.Drawing.Size(378, 24);
 			this.textBox_comment.TabIndex = 6;
 			// 
 			// button_add
 			// 
-			this.button_add.Location = new System.Drawing.Point(55, 178);
+			this.button_add.Location = new System.Drawing.Point(56, 217);
 			this.button_add.Name = "button_add";
 			this.button_add.Size = new System.Drawing.Size(115, 33);
 			this.button_add.TabIndex = 7;
@@ -121,7 +123,7 @@ namespace ReportGenerator
 			// 
 			// button_cancel
 			// 
-			this.button_cancel.Location = new System.Drawing.Point(234, 178);
+			this.button_cancel.Location = new System.Drawing.Point(235, 217);
 			this.button_cancel.Name = "button_cancel";
 			this.button_cancel.Size = new System.Drawing.Size(115, 33);
 			this.button_cancel.TabIndex = 8;
@@ -144,14 +146,41 @@ namespace ReportGenerator
 			this.comboBox_title.FormattingEnabled = true;
 			this.comboBox_title.Location = new System.Drawing.Point(12, 32);
 			this.comboBox_title.Name = "comboBox_title";
-			this.comboBox_title.Size = new System.Drawing.Size(182, 25);
+			this.comboBox_title.Size = new System.Drawing.Size(378, 25);
 			this.comboBox_title.TabIndex = 10;
+			// 
+			// label_result
+			// 
+			this.label_result.AutoSize = true;
+			this.label_result.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.label_result.Location = new System.Drawing.Point(12, 111);
+			this.label_result.Name = "label_result";
+			this.label_result.Size = new System.Drawing.Size(65, 22);
+			this.label_result.TabIndex = 11;
+			this.label_result.Text = "Result:";
+			// 
+			// comboBox_result
+			// 
+			this.comboBox_result.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_result.FormattingEnabled = true;
+			this.comboBox_result.Items.AddRange(new object[] {
+            "Pass",
+            "Failed",
+            "Retest",
+            "Blocked"});
+			this.comboBox_result.Location = new System.Drawing.Point(12, 136);
+			this.comboBox_result.Name = "comboBox_result";
+			this.comboBox_result.Size = new System.Drawing.Size(181, 25);
+			this.comboBox_result.TabIndex = 12;
+			this.comboBox_result.SelectedIndexChanged += new System.EventHandler(this.Result_OnSelectedIndexChanged);
 			// 
 			// Form_AddTask
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(402, 223);
+			this.ClientSize = new System.Drawing.Size(402, 256);
+			this.Controls.Add(this.comboBox_result);
+			this.Controls.Add(this.label_result);
 			this.Controls.Add(this.comboBox_title);
 			this.Controls.Add(this.label_title);
 			this.Controls.Add(this.button_cancel);
@@ -177,6 +206,7 @@ namespace ReportGenerator
 		public System.Windows.Forms.TextBox textBox_time;
 		public System.Windows.Forms.TextBox textBox_comment;
 		public System.Windows.Forms.ComboBox comboBox_title;
+		public System.Windows.Forms.ComboBox comboBox_result;
 
 		private System.Windows.Forms.Label label_content;
 		private System.Windows.Forms.Label label_time;
@@ -185,5 +215,6 @@ namespace ReportGenerator
 		private System.Windows.Forms.Button button_add;
 		private System.Windows.Forms.Button button_cancel;
 		private System.Windows.Forms.Label label_title;
+		private System.Windows.Forms.Label label_result;
 	}
 }

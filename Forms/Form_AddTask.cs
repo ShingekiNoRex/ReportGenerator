@@ -21,6 +21,7 @@ namespace ReportGenerator
 			this.Text = "Edit Task";
 			button_add.Text = "Confirm";
 			comboBox_title.Text = title;
+			comboBox_result.SelectedIndex = (int)taskItem.result;
 			textBox_content.Text = taskItem.content;
 			textBox_time.Text = taskItem.time.ToString();
 			textBox_comment.Text = taskItem.comment;
@@ -36,6 +37,7 @@ namespace ReportGenerator
 					comboBox_title.Items.Add(category.title);
 				}
 			}
+			comboBox_result.SelectedIndex = 0;
 		}
 
 		private void OnCancel(object sender, EventArgs e)
@@ -58,6 +60,10 @@ namespace ReportGenerator
 			{
 				MessageBox.Show("Missing time, title or content.", "Error");
 			}
+			else if (comboBox_result.SelectedIndex != 0 && string.IsNullOrWhiteSpace(textBox_comment.Text))
+			{
+				MessageBox.Show("Missing comment.", "Error");
+			}
 			else
 			{
 				if (_isEditorMode)
@@ -67,9 +73,14 @@ namespace ReportGenerator
 				else
 				{
 					int.TryParse(textBox_time.Text, out int time);
-					FormReference.MainForm.AddTask(comboBox_title.Text, textBox_content.Text, time, textBox_comment.Text);
+					FormReference.MainForm.AddTask(comboBox_title.Text, textBox_content.Text, time, (TaskResult)comboBox_result.SelectedIndex, textBox_comment.Text);
 				}
 			}
+		}
+
+		private void Result_OnSelectedIndexChanged(object sender, EventArgs e)
+		{
+			label_comment.Text = comboBox_result.SelectedIndex == 0 ? "Comment (Optional):" : "Comment:";
 		}
 	}
 }

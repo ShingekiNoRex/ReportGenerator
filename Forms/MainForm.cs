@@ -152,18 +152,19 @@ namespace ReportGenerator
 						{
 							taskItem.content = form_editTask.textBox_content.Text;
 							taskItem.comment = form_editTask.textBox_comment.Text;
+							taskItem.result = (TaskResult)form_editTask.comboBox_result.SelectedIndex;
 
 							int.TryParse(form_editTask.textBox_time.Text, out int time);
 							taskItem.time = time;
 
-							treeView_tasklist.SelectedNode.Text = taskItem.content + " " + taskItem.time + "m " + taskItem.comment;
+							treeView_tasklist.SelectedNode.Text = string.Format("{0} ({1}) {2}m {3}", taskItem.content, taskItem.result, taskItem.time, taskItem.comment);
 						}
 						else
 						{
 							Remove(treeView_tasklist.SelectedNode);
 
 							int.TryParse(form_editTask.textBox_time.Text, out int time);
-							AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Text, time, form_editTask.textBox_comment.Text);
+							AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Text, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_comment.Text);
 						}
 
 						form_editTask.Close();
@@ -324,12 +325,15 @@ namespace ReportGenerator
 					sw.WriteLine(string.Format("{0}: {1} ({2}m)", testingItem.category.title, testingItem.tasks.Count, thisTotalTime));
 					foreach (var task in testingItem.tasks)
 					{
-						sw.WriteLine(task.content + " " + task.time + "m " + task.comment);
+						sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
 					}
 
-					sw.WriteLine("Bugs:");
-					foreach (var bug in testingItem.bugs)
-						sw.WriteLine(string.Format("{0} ({1})", bug.link, bug.type.ToString()));
+					if (testingItem.bugs.Count > 0)
+					{
+						sw.WriteLine("Bugs:");
+						foreach (var bug in testingItem.bugs)
+							sw.WriteLine(string.Format("{0} ({1})", bug.link, bug.type.ToString()));
+					}
 
 					sw.WriteLine();
 				}
@@ -368,22 +372,22 @@ namespace ReportGenerator
 		#endregion
 
 		#region Public Methods
-		public void AddTask(Category category, string content, int time, string comment = "")
+		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Pass, string comment = "")
 		{
-			AddTask(category.title, content, time, comment);
+			AddTask(category.title, content, time, result, comment);
 		}
 
-		public void AddTask(string title, string content, int time, string comment = "")
+		public void AddTask(string title, string content, int time, TaskResult result = TaskResult.Pass, string comment = "")
 		{
-			TaskItem taskItem = new TaskItem(content, time, comment);
+			TaskItem taskItem = new TaskItem(content, time, result, comment);
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
 				_testingItems.Find(item => item.Equals(title)).tasks.Add(taskItem);
 
 				if (treeView_tasklist.Nodes[title].Nodes.ContainsKey("Tasks"))
-					treeView_tasklist.Nodes[title].Nodes["Tasks"].Nodes.Add(content + " " + time + "m " + comment).Tag = taskItem;
+					treeView_tasklist.Nodes[title].Nodes["Tasks"].Nodes.Add(string.Format("{0} ({1}) {2}m {3}", content, result, time, comment)).Tag = taskItem;
 				else
-					treeView_tasklist.Nodes[title].Nodes.Add("Tasks", "Tasks").Nodes.Add(content + " " + time + "m " + comment).Tag = taskItem;
+					treeView_tasklist.Nodes[title].Nodes.Add("Tasks", "Tasks").Nodes.Add(string.Format("{0} ({1}) {2}m {3}", content, result, time, comment)).Tag = taskItem;
 			}
 			else
 			{
@@ -391,7 +395,7 @@ namespace ReportGenerator
 				testingItem.tasks.Add(taskItem);
 				_testingItems.Add(testingItem);
 
-				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Tasks", "Tasks").Nodes.Add(content + " " + time + "m " + comment).Tag = taskItem;
+				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Tasks", "Tasks").Nodes.Add(string.Format("{0} ({1}) {2}m {3}", content, result, time, comment)).Tag = taskItem;
 			}
 			ReportChangedIndicate();
 		}
@@ -618,7 +622,7 @@ namespace ReportGenerator
 			foreach (var testingItem in report.testings)
 			{
 				foreach (var task in testingItem.tasks)
-					AddTask(testingItem.category, task.content, task.time, task.comment);
+					AddTask(testingItem.category, task.content, task.time, task.result, task.comment);
 				foreach (var bug in testingItem.bugs)
 					AddBug(testingItem.category, bug.type, bug.link);
 			}
