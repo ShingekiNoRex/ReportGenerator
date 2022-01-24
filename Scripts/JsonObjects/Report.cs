@@ -53,7 +53,7 @@ namespace ReportGenerator
 			DateTime fromDate = DateTime.Compare(dt1, dt3) > 0 ? dt3 : dt1;
 			DateTime toDate = DateTime.Compare(dt2, dt4) > 0 ? dt2 : dt4;
 
-			return DateTime.Compare(fromDate, toDate) == 0 ? fromDate.ToShortDateString() : fromDate.ToShortDateString() + " - " + toDate.ToShortDateString();
+			return DateTime.Compare(fromDate, toDate) == 0 ? fromDate.ToString("M/d/yyyy") : fromDate.ToString("M/d/yyyy") + " - " + toDate.ToString("M/d/yyyy");
 		}
 	}
 }

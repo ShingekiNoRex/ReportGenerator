@@ -207,8 +207,8 @@ namespace ReportGenerator
 			// 
 			// dateTimePicker_from
 			// 
-			this.dateTimePicker_from.CustomFormat = "";
-			this.dateTimePicker_from.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			this.dateTimePicker_from.CustomFormat = "M/d/yyyy";
+			this.dateTimePicker_from.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 			this.dateTimePicker_from.Location = new System.Drawing.Point(161, 3);
 			this.dateTimePicker_from.Name = "dateTimePicker_from";
 			this.dateTimePicker_from.Size = new System.Drawing.Size(110, 23);
@@ -227,7 +227,8 @@ namespace ReportGenerator
 			// 
 			// dateTimePicker_to
 			// 
-			this.dateTimePicker_to.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			this.dateTimePicker_to.CustomFormat = "M/d/yyyy";
+			this.dateTimePicker_to.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 			this.dateTimePicker_to.Location = new System.Drawing.Point(322, 3);
 			this.dateTimePicker_to.Name = "dateTimePicker_to";
 			this.dateTimePicker_to.Size = new System.Drawing.Size(110, 23);
