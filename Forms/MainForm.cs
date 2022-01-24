@@ -29,6 +29,16 @@ namespace ReportGenerator
 		{
 			saveFileDialog_json.InitialDirectory = Application.StartupPath;
 			openFileDialog_json.InitialDirectory = Application.StartupPath;
+			if (string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
+			{
+				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d");
+				saveFileDialog_txt.FileName = DateTime.Today.ToString("yyyy.M.d");
+			}
+			else
+			{
+				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d") + " - " + ConfigSettings.Settings["Name"];
+				saveFileDialog_txt.FileName = DateTime.Today.ToString("yyyy.M.d") + " - " + ConfigSettings.Settings["Name"];
+			}
 			dateTimePicker_to.Value = DateTime.Today;
 			dateTimePicker_from.Value = DateTime.Today;
 			this.Text = "Untitled - Report Generator";

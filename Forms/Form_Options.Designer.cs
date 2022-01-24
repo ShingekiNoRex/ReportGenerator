@@ -87,6 +87,7 @@ namespace ReportGenerator
 			// openFileDialog_json
 			// 
 			this.openFileDialog_json.Filter = "JSON File|*.json";
+			this.openFileDialog_json.RestoreDirectory = true;
 			// 
 			// label_titlesPath
 			// 

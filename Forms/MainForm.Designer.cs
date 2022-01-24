@@ -434,15 +434,18 @@ namespace ReportGenerator
 			// saveFileDialog_json
 			// 
 			this.saveFileDialog_json.Filter = "JSON File|*.json";
+			this.saveFileDialog_json.RestoreDirectory = true;
 			// 
 			// openFileDialog_json
 			// 
 			this.openFileDialog_json.Filter = "JSON File|*.json";
 			this.openFileDialog_json.Multiselect = true;
+			this.openFileDialog_json.RestoreDirectory = true;
 			// 
 			// saveFileDialog_txt
 			// 
 			this.saveFileDialog_txt.Filter = "Text File|*.txt";
+			this.saveFileDialog_txt.RestoreDirectory = true;
 			// 
 			// MainForm
 			// 
