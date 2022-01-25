@@ -113,6 +113,19 @@ namespace ReportGenerator
 				FormReference.AddBugForm.Activate();
 		}
 
+		private void HyperlinkRetriever_OnClick(object sender, EventArgs e)
+		{
+			if (FormReference.HyperlinkRetrieverForm == null)
+			{
+				FormReference.HyperlinkRetrieverForm = new Form_HyperlinkRetriever();
+				FormReference.HyperlinkRetrieverForm.Show();
+			}
+			else if (!FormReference.HyperlinkRetrieverForm.Visible)
+				FormReference.HyperlinkRetrieverForm.Show();
+			else
+				FormReference.HyperlinkRetrieverForm.Activate();
+		}
+
 		private void ToDate_OnValueChanged(object sender, EventArgs e)
 		{
 			if (DateTime.Compare(dateTimePicker_from.Value, dateTimePicker_to.Value) > 0)

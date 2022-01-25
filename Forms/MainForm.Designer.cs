@@ -41,6 +41,7 @@ namespace ReportGenerator
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.hyperlinkRetrieverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label_date = new System.Windows.Forms.Label();
@@ -160,7 +161,8 @@ namespace ReportGenerator
 			// toolsToolStripMenuItem
 			// 
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.hyperlinkRetrieverToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
 			this.toolsToolStripMenuItem.Text = "&Tools";
@@ -168,9 +170,16 @@ namespace ReportGenerator
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.optionsToolStripMenuItem.Text = "&Options";
 			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.Options_OnClick);
+			// 
+			// hyperlinkRetrieverToolStripMenuItem
+			// 
+			this.hyperlinkRetrieverToolStripMenuItem.Name = "hyperlinkRetrieverToolStripMenuItem";
+			this.hyperlinkRetrieverToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.hyperlinkRetrieverToolStripMenuItem.Text = "Hyperlink Retriever";
+			this.hyperlinkRetrieverToolStripMenuItem.Click += new System.EventHandler(this.HyperlinkRetriever_OnClick);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -513,6 +522,7 @@ namespace ReportGenerator
 		private System.Windows.Forms.SaveFileDialog saveFileDialog_json;
 		private System.Windows.Forms.OpenFileDialog openFileDialog_json;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog_txt;
+		private System.Windows.Forms.ToolStripMenuItem hyperlinkRetrieverToolStripMenuItem;
 	}
 }
 

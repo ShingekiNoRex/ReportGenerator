@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-
+﻿
 namespace ReportGenerator
 {
 	public class FormReference
@@ -9,5 +8,7 @@ namespace ReportGenerator
 		public static Form_AddTask AddTaskForm { get; set; }
 
 		public static Form_AddBug AddBugForm { get; set; }
+
+		public static Form_HyperlinkRetriever HyperlinkRetrieverForm { get; set; }
 	}
 }
