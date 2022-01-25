@@ -133,6 +133,7 @@ namespace ReportGenerator
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Name = "Form_AddBug";
 			this.Text = "Add Bug";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
