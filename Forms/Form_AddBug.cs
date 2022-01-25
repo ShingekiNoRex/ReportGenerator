@@ -67,7 +67,10 @@ namespace ReportGenerator
 				if (_isEditorMode)
 					this.DialogResult = DialogResult.OK;
 				else
-					FormReference.MainForm.AddBug(comboBox_title.Text, (BugType)comboBox_bugType.SelectedIndex, textBox_link.Text);
+				{
+					foreach (string line in textBox_link.Lines)
+						FormReference.MainForm.AddBug(comboBox_title.Text, (BugType)comboBox_bugType.SelectedIndex, line);
+				}
 			}
 		}
 	}

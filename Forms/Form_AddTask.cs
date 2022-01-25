@@ -84,7 +84,8 @@ namespace ReportGenerator
 				else
 				{
 					int.TryParse(textBox_time.Text, out int time);
-					FormReference.MainForm.AddTask(comboBox_title.Text, textBox_content.Text, time, (TaskResult)comboBox_result.SelectedIndex, textBox_comment.Text);
+					foreach (string line in textBox_content.Lines)
+						FormReference.MainForm.AddTask(comboBox_title.Text, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_comment.Text);
 				}
 			}
 		}

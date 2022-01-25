@@ -187,7 +187,8 @@ namespace ReportGenerator
 							Remove(treeView_tasklist.SelectedNode);
 
 							int.TryParse(form_editTask.textBox_time.Text, out int time);
-							AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Text, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_comment.Text);
+							foreach (string line in form_editTask.textBox_content.Lines)
+								AddTask(form_editTask.comboBox_title.Text, line, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_comment.Text);
 						}
 
 						form_editTask.Close();
@@ -209,7 +210,8 @@ namespace ReportGenerator
 						{
 							Remove(treeView_tasklist.SelectedNode);
 
-							AddBug(form_editBug.comboBox_title.Text, (BugType)form_editBug.comboBox_bugType.SelectedIndex, form_editBug.textBox_link.Text);
+							foreach (string line in form_editBug.textBox_link.Lines)
+								AddBug(form_editBug.comboBox_title.Text, (BugType)form_editBug.comboBox_bugType.SelectedIndex, line);
 						}
 
 						form_editBug.Close();

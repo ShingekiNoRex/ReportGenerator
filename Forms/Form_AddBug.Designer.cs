@@ -55,9 +55,9 @@ namespace ReportGenerator
 			this.label_link.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.label_link.Location = new System.Drawing.Point(12, 60);
 			this.label_link.Name = "label_link";
-			this.label_link.Size = new System.Drawing.Size(44, 22);
+			this.label_link.Size = new System.Drawing.Size(69, 22);
 			this.label_link.TabIndex = 1;
-			this.label_link.Text = "Link";
+			this.label_link.Text = "Link(s):";
 			// 
 			// comboBox_bugType
 			// 
@@ -75,9 +75,12 @@ namespace ReportGenerator
 			// textBox_link
 			// 
 			this.textBox_link.Location = new System.Drawing.Point(12, 85);
+			this.textBox_link.Multiline = true;
 			this.textBox_link.Name = "textBox_link";
-			this.textBox_link.Size = new System.Drawing.Size(359, 23);
+			this.textBox_link.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.textBox_link.Size = new System.Drawing.Size(359, 57);
 			this.textBox_link.TabIndex = 3;
+			this.textBox_link.WordWrap = false;
 			// 
 			// comboBox_title
 			// 
@@ -99,7 +102,7 @@ namespace ReportGenerator
 			// 
 			// button_add
 			// 
-			this.button_add.Location = new System.Drawing.Point(48, 114);
+			this.button_add.Location = new System.Drawing.Point(49, 148);
 			this.button_add.Name = "button_add";
 			this.button_add.Size = new System.Drawing.Size(115, 33);
 			this.button_add.TabIndex = 13;
@@ -109,7 +112,7 @@ namespace ReportGenerator
 			// 
 			// button_cancel
 			// 
-			this.button_cancel.Location = new System.Drawing.Point(218, 114);
+			this.button_cancel.Location = new System.Drawing.Point(219, 148);
 			this.button_cancel.Name = "button_cancel";
 			this.button_cancel.Size = new System.Drawing.Size(115, 33);
 			this.button_cancel.TabIndex = 14;
@@ -121,7 +124,7 @@ namespace ReportGenerator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(383, 157);
+			this.ClientSize = new System.Drawing.Size(383, 187);
 			this.Controls.Add(this.button_cancel);
 			this.Controls.Add(this.button_add);
 			this.Controls.Add(this.comboBox_title);
