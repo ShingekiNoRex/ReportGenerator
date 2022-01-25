@@ -80,7 +80,7 @@ namespace ReportGenerator
 				}
 				catch (Exception ex)
 				{
-					Debug.WriteLine("Error when loading BuildInfo:" + ex);
+					Debug.WriteLine("Error when loading Titles:" + ex);
 				}
 			}
 		}
