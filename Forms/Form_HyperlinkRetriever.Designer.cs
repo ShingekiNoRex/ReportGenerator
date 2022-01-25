@@ -82,9 +82,9 @@ namespace ReportGenerator
 			this.checkBox_disableClickableUrls.AutoSize = true;
 			this.checkBox_disableClickableUrls.Location = new System.Drawing.Point(410, 41);
 			this.checkBox_disableClickableUrls.Name = "checkBox_disableClickableUrls";
-			this.checkBox_disableClickableUrls.Size = new System.Drawing.Size(153, 21);
+			this.checkBox_disableClickableUrls.Size = new System.Drawing.Size(149, 21);
 			this.checkBox_disableClickableUrls.TabIndex = 4;
-			this.checkBox_disableClickableUrls.Text = "Disable Clickable Urls";
+			this.checkBox_disableClickableUrls.Text = "Disable clickable urls";
 			this.checkBox_disableClickableUrls.UseVisualStyleBackColor = true;
 			this.checkBox_disableClickableUrls.CheckedChanged += new System.EventHandler(this.DisableClickableUrls_OnCheckedChanged);
 			// 
