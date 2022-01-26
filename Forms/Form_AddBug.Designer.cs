@@ -65,7 +65,7 @@ namespace ReportGenerator
 			this.comboBox_bugType.FormattingEnabled = true;
 			this.comboBox_bugType.Items.AddRange(new object[] {
             "New",
-            "Retested",
+            "Reopened",
             "Closed"});
 			this.comboBox_bugType.Location = new System.Drawing.Point(263, 32);
 			this.comboBox_bugType.Name = "comboBox_bugType";

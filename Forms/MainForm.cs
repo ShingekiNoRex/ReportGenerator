@@ -335,7 +335,7 @@ namespace ReportGenerator
 				sw.WriteLine("build: " + buildInfo.build);
 				sw.WriteLine("CL: " + buildInfo.cl);
 				sw.WriteLine("environment: " + buildInfo.environment);
-				sw.WriteLine(string.Format("Number of bugs found {0}, retested {1}, closed {2}", bugAmount[0], bugAmount[1], bugAmount[2]));
+				sw.WriteLine(string.Format("Number of bugs found {0}, reopened {1}, closed {2}", bugAmount[0], bugAmount[1], bugAmount[2]));
 				sw.WriteLine("Build installation time: " + textBox_installTime.Text + "m");
 				sw.WriteLine();
 

@@ -3,7 +3,7 @@
 	public enum BugType
 	{
 		New = 0,
-		Retested,
+		Reopened,
 		Closed
 	}
 
