@@ -347,7 +347,11 @@ namespace ReportGenerator
 					totalTasks += testingItem.tasks.Count;
 					totalTime += thisTotalTime;
 
-					sw.WriteLine(string.Format("{0}: {1} ({2}m)", testingItem.category.title, testingItem.tasks.Count, thisTotalTime));
+					if (thisTotalTime > 0)
+						sw.WriteLine(string.Format("{0}: {1} ({2}m)", testingItem.category.title, testingItem.tasks.Count > 0 ? testingItem.tasks.Count.ToString() : string.Empty, thisTotalTime));
+					else
+						sw.WriteLine(string.Format("{0}: {1}", testingItem.category.title, testingItem.tasks.Count > 0 ? testingItem.tasks.Count.ToString() : string.Empty));
+
 					foreach (var task in testingItem.tasks)
 					{
 						sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
