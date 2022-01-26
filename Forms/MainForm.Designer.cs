@@ -438,6 +438,7 @@ namespace ReportGenerator
 			this.treeView_tasklist.Name = "treeView_tasklist";
 			this.treeView_tasklist.Size = new System.Drawing.Size(263, 234);
 			this.treeView_tasklist.TabIndex = 0;
+			this.treeView_tasklist.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TaskList_OnAfterSelect);
 			this.treeView_tasklist.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TaskList_OnNodeMouseClick);
 			// 
 			// saveFileDialog_json

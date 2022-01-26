@@ -149,6 +149,11 @@ namespace ReportGenerator
 
 		private void TaskList_OnNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
+			// TODO
+		}
+
+		private void TaskList_OnAfterSelect(object sender, TreeViewEventArgs e)
+		{
 			button_edit.Enabled = e.Node.Level > 1;
 			button_remove.Enabled = e.Node.Level > 1;
 		}
