@@ -27,8 +27,6 @@ namespace ReportGenerator
 		#region Initialization
 		private void InitializeComponent_Post()
 		{
-			saveFileDialog_json.InitialDirectory = Application.StartupPath;
-			openFileDialog_json.InitialDirectory = Application.StartupPath;
 			if (string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
 			{
 				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d");
