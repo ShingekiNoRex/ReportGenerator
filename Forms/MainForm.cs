@@ -584,7 +584,7 @@ namespace ReportGenerator
 						}
 					}
 
-					if (report == null)
+					if (report == null || string.IsNullOrWhiteSpace(report.date))
 					{
 						MessageBox.Show("Failed to load report.", "Error");
 						return;
