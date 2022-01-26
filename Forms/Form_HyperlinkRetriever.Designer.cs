@@ -111,6 +111,7 @@ namespace ReportGenerator
 			this.Controls.Add(this.checkBox_removeDuplicate);
 			this.Controls.Add(this.button_retrieveFromClipboard);
 			this.Controls.Add(this.richTextBox_hyperlink);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Name = "Form_HyperlinkRetriever";
 			this.Text = "Hyperlink Retriever";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
