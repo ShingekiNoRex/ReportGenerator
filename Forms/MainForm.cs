@@ -9,6 +9,8 @@ namespace ReportGenerator
 {
 	public partial class MainForm : Form
 	{
+		public const string Version = "1.4";
+
 		public BuildInfo[] BuildInfoCollection;
 		public Category[] CategoriesCollection;
 
@@ -39,7 +41,7 @@ namespace ReportGenerator
 			}
 			dateTimePicker_to.Value = DateTime.Today;
 			dateTimePicker_from.Value = DateTime.Today;
-			this.Text = "Untitled - Report Generator";
+			this.Text = "Untitled - Report Generator " + Version;
 			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path))
 				BuildInfoProcessor(path);
 			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out path))
@@ -523,7 +525,7 @@ namespace ReportGenerator
 			Report report = new Report(date, BuildInfoCollection[comboBox_buildinfo.SelectedIndex], time, _testingItems);
 			File.WriteAllBytes(path, JsonSerializer.Serialize(report));
 
-			this.Text = Path.GetFileNameWithoutExtension(path) + " - Report Generator";
+			this.Text = Path.GetFileNameWithoutExtension(path) + " - Report Generator " + Version;
 			_fileSaved = true;
 			Debug.WriteLine("File saved as " + path);
 		}
@@ -614,7 +616,7 @@ namespace ReportGenerator
 
 					LoadReport(report);
 
-					this.Text = fileNames + " - Report Generator";
+					this.Text = fileNames + " - Report Generator " + Version;
 					if (openFileDialog_json.FileNames.Length > 1)
 					{
 						_currentPath = "";
