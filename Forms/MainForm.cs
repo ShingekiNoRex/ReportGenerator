@@ -57,7 +57,9 @@ namespace ReportGenerator
 					{
 						foreach (BuildInfo build in BuildInfoCollection)
 						{
-							comboBox_buildinfo.Items.Add(build.branch + "." + build.build + " CL " + build.cl + " " + build.environment);
+							string info = build.branch + "." + build.build + " CL " + build.cl + " " + build.environment;
+							if (!comboBox_buildinfo.Items.Contains(info))
+								comboBox_buildinfo.Items.Add(info);
 						}
 					}
 				}
@@ -470,6 +472,14 @@ namespace ReportGenerator
 				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Bugs", "Bugs").Nodes.Add(bugType.ToString() + " - " + link).Tag = bugItem;
 			}
 			ReportChangedIndicate();
+		}
+
+		public void ReloadConfig()
+		{
+			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path))
+				BuildInfoProcessor(path);
+			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out path))
+				TitlesProcessor(path);
 		}
 		#endregion
 

@@ -8,7 +8,6 @@ namespace ReportGenerator
 		public Form_Options()
 		{
 			InitializeComponent();
-			openFileDialog_json.InitialDirectory = Application.StartupPath;
 
 			if (ConfigSettings.Settings.TryGetValue("Name", out string name))
 				textBox_name.Text = name;
@@ -38,6 +37,7 @@ namespace ReportGenerator
 		private void Save_OnClick(object sender, EventArgs e)
 		{
 			ConfigSettings.Save(textBox_name.Text, textBox_buildInfoPath.Text, textBox_titlesPath.Text);
+			FormReference.MainForm.ReloadConfig();
 			this.Dispose();
 		}
 	}
