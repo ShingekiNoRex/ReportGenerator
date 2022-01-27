@@ -36,6 +36,7 @@ namespace ReportGenerator
 			this.checkBox_disableClickableUrls = new System.Windows.Forms.CheckBox();
 			this.label_copy = new System.Windows.Forms.Label();
 			this.checkBox_removeRedundant = new System.Windows.Forms.CheckBox();
+			this.button_gethtml = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// richTextBox_hyperlink
@@ -48,7 +49,7 @@ namespace ReportGenerator
 			// 
 			// button_retrieveFromClipboard
 			// 
-			this.button_retrieveFromClipboard.Location = new System.Drawing.Point(410, 126);
+			this.button_retrieveFromClipboard.Location = new System.Drawing.Point(410, 95);
 			this.button_retrieveFromClipboard.Name = "button_retrieveFromClipboard";
 			this.button_retrieveFromClipboard.Size = new System.Drawing.Size(161, 45);
 			this.button_retrieveFromClipboard.TabIndex = 1;
@@ -70,7 +71,7 @@ namespace ReportGenerator
 			// 
 			// button_copy
 			// 
-			this.button_copy.Location = new System.Drawing.Point(410, 177);
+			this.button_copy.Location = new System.Drawing.Point(410, 197);
 			this.button_copy.Name = "button_copy";
 			this.button_copy.Size = new System.Drawing.Size(161, 45);
 			this.button_copy.TabIndex = 3;
@@ -113,11 +114,22 @@ namespace ReportGenerator
 			this.checkBox_removeRedundant.Text = "Remove redundant info";
 			this.checkBox_removeRedundant.UseVisualStyleBackColor = true;
 			// 
+			// button_gethtml
+			// 
+			this.button_gethtml.Location = new System.Drawing.Point(410, 146);
+			this.button_gethtml.Name = "button_gethtml";
+			this.button_gethtml.Size = new System.Drawing.Size(161, 45);
+			this.button_gethtml.TabIndex = 7;
+			this.button_gethtml.Text = "Display HTML text";
+			this.button_gethtml.UseVisualStyleBackColor = true;
+			this.button_gethtml.Click += new System.EventHandler(this.DisplayHTMLText_OnClick);
+			// 
 			// Form_HyperlinkRetriever
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(593, 286);
+			this.Controls.Add(this.button_gethtml);
 			this.Controls.Add(this.checkBox_removeRedundant);
 			this.Controls.Add(this.label_copy);
 			this.Controls.Add(this.checkBox_disableClickableUrls);
@@ -143,5 +155,6 @@ namespace ReportGenerator
 		private System.Windows.Forms.CheckBox checkBox_disableClickableUrls;
 		private System.Windows.Forms.Label label_copy;
 		private System.Windows.Forms.CheckBox checkBox_removeRedundant;
+		private System.Windows.Forms.Button button_gethtml;
 	}
 }

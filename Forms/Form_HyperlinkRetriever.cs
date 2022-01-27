@@ -51,5 +51,10 @@ namespace ReportGenerator
 		{
 			richTextBox_hyperlink.DetectUrls = !checkBox_disableClickableUrls.Checked;
 		}
+
+		private void DisplayHTMLText_OnClick(object sender, EventArgs e)
+		{
+			richTextBox_hyperlink.Text = Clipboard.GetText(TextDataFormat.Html);
+		}
 	}
 }
