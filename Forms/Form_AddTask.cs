@@ -42,21 +42,19 @@ namespace ReportGenerator
 
 		private void OnCancel(object sender, EventArgs e)
 		{
-			ReturnToMainForm();
-		}
-
-		private void OnFormClosing(object sender, FormClosingEventArgs e)
-		{
-			e.Cancel = true;
-			ReturnToMainForm();
-		}
-
-		private void ReturnToMainForm()
-		{
 			if (_isEditorMode)
 				this.DialogResult = DialogResult.Cancel;
 			else
 				this.Hide();
+		}
+
+		private void OnFormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (!_isEditorMode)
+			{
+				e.Cancel = true;
+				this.Hide();
+			}
 		}
 
 		private void TaskTime_OnKeyPress(object sender, KeyPressEventArgs e)

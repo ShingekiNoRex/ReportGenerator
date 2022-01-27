@@ -176,7 +176,7 @@ namespace ReportGenerator
 					{
 						if (form_editTask.comboBox_title.Text.Equals(title))
 						{
-							taskItem.content = form_editTask.textBox_content.Text;
+							taskItem.content = form_editTask.textBox_content.Lines[0];
 							taskItem.comment = form_editTask.textBox_comment.Text;
 							taskItem.result = (TaskResult)form_editTask.comboBox_result.SelectedIndex;
 
@@ -184,6 +184,9 @@ namespace ReportGenerator
 							taskItem.time = time;
 
 							treeView_tasklist.SelectedNode.Text = string.Format("{0} ({1}) {2}m {3}", taskItem.content, taskItem.result, taskItem.time, taskItem.comment);
+
+							for (int i = 1; i < form_editTask.textBox_content.Lines.Length; i ++)
+								AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Lines[i], time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_comment.Text);
 						}
 						else
 						{
@@ -204,10 +207,13 @@ namespace ReportGenerator
 					{
 						if (form_editBug.comboBox_title.Text.Equals(title))
 						{
-							bugItem.link = form_editBug.textBox_link.Text;
+							bugItem.link = form_editBug.textBox_link.Lines[0];
 							bugItem.type = (BugType)form_editBug.comboBox_bugType.SelectedIndex;
 
 							treeView_tasklist.SelectedNode.Text = bugItem.type.ToString() + " - " + bugItem.link;
+
+							for (int i = 1; i < form_editBug.textBox_link.Lines.Length; i++)
+								AddBug(form_editBug.comboBox_title.Text, (BugType)form_editBug.comboBox_bugType.SelectedIndex, form_editBug.textBox_link.Lines[i]);
 						}
 						else
 						{
