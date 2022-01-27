@@ -23,10 +23,14 @@ namespace ReportGenerator
 			Regex reg = new Regex(@"(?is)<a[^>]*?href=(['""\s]?)(?<href>[^'""\s]*)\1[^>]*?>");
 			foreach (Match match in reg.Matches(Clipboard.GetText(TextDataFormat.Html)))
 			{
-				if (checkBox_removeDuplicate.Checked && links.Contains(match.Groups["href"].Value))
+				string link = match.Groups["href"].Value;
+				if (checkBox_removeDuplicate.Checked && links.Contains(link))
 					continue;
 
-				links = links + match.Groups["href"].Value + Environment.NewLine;
+				if (checkBox_removeRedundant.Checked && (link.ToLower().Contains("javascript") || link.ToLower().Contains("statusdropdown")))
+					continue;
+
+				links = links + link + Environment.NewLine;
 			}
 
 			richTextBox_hyperlink.Text = links;
