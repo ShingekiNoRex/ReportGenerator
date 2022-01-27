@@ -501,8 +501,8 @@ namespace ReportGenerator
 					selectedNode.Remove();
 			}
 
-			button_edit.Enabled = false;
-			button_remove.Enabled = false;
+			button_edit.Enabled = treeView_tasklist.SelectedNode.Level > 1;
+			button_remove.Enabled = treeView_tasklist.SelectedNode.Level > 1;
 			ReportChangedIndicate();
 		}
 
