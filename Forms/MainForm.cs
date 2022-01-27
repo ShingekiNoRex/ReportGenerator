@@ -417,6 +417,9 @@ namespace ReportGenerator
 
 		public void AddTask(string title, string content, int time, TaskResult result = TaskResult.Pass, string comment = "")
 		{
+			if (string.IsNullOrWhiteSpace(content))
+				return;
+
 			TaskItem taskItem = new TaskItem(content, time, result, comment);
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
@@ -445,6 +448,9 @@ namespace ReportGenerator
 
 		public void AddBug(string title, BugType bugType, string link)
 		{
+			if (string.IsNullOrWhiteSpace(link))
+				return;
+
 			BugItem bugItem = new BugItem(bugType, link);
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
