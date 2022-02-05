@@ -46,7 +46,7 @@ namespace ReportGenerator
 			// 
 			// button_cancel
 			// 
-			this.button_cancel.Location = new System.Drawing.Point(172, 252);
+			this.button_cancel.Location = new System.Drawing.Point(168, 252);
 			this.button_cancel.Name = "button_cancel";
 			this.button_cancel.Size = new System.Drawing.Size(96, 32);
 			this.button_cancel.TabIndex = 2;
@@ -60,14 +60,14 @@ namespace ReportGenerator
 			this.checkedListBox_buildInfo.FormattingEnabled = true;
 			this.checkedListBox_buildInfo.Location = new System.Drawing.Point(12, 12);
 			this.checkedListBox_buildInfo.Name = "checkedListBox_buildInfo";
-			this.checkedListBox_buildInfo.Size = new System.Drawing.Size(284, 220);
+			this.checkedListBox_buildInfo.Size = new System.Drawing.Size(273, 220);
 			this.checkedListBox_buildInfo.TabIndex = 3;
 			// 
 			// Form_BuildInfoSelection
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(308, 299);
+			this.ClientSize = new System.Drawing.Size(296, 299);
 			this.Controls.Add(this.checkedListBox_buildInfo);
 			this.Controls.Add(this.button_cancel);
 			this.Controls.Add(this.button_ok);
