@@ -9,7 +9,7 @@ namespace ReportGenerator
 {
 	public partial class MainForm : Form
 	{
-		public const string Version = "1.3";
+		public const string Version = "1.4";
 
 		public BuildInfo[] BuildInfoCollection;
 		public Category[] CategoriesCollection;
