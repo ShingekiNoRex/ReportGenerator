@@ -80,7 +80,6 @@ namespace ReportGenerator
 			this.textBox_link.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.textBox_link.Size = new System.Drawing.Size(359, 57);
 			this.textBox_link.TabIndex = 3;
-			this.textBox_link.WordWrap = false;
 			// 
 			// comboBox_title
 			// 

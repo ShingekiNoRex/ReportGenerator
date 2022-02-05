@@ -63,7 +63,6 @@ namespace ReportGenerator
 			this.textBox_content.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.textBox_content.Size = new System.Drawing.Size(378, 57);
 			this.textBox_content.TabIndex = 1;
-			this.textBox_content.WordWrap = false;
 			// 
 			// label_time
 			// 
