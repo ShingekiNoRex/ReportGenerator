@@ -7,11 +7,11 @@ namespace ReportGenerator
 	public class Report
 	{
 		public string date;
-		public BuildInfo buildInfo;
+		public List<BuildInfo> buildInfo;
 		public int installTime;
 		public List<TestingItem> testings;
 
-		public Report(string date, BuildInfo buildInfo, int installTime, List<TestingItem> testings)
+		public Report(string date, List<BuildInfo> buildInfo, int installTime, List<TestingItem> testings)
 		{
 			this.date = date;
 			this.buildInfo = buildInfo;
@@ -25,7 +25,7 @@ namespace ReportGenerator
 				return;
 
 			date = CombineDate(date.Split(" - "), other.date.Split(" - "));
-			buildInfo.Combine(other.buildInfo);
+			buildInfo = new List<BuildInfo>(this.buildInfo.Concat(other.buildInfo));
 			installTime += other.installTime;
 			foreach (TestingItem otherItem in other.testings)
 			{

@@ -17,6 +17,7 @@ namespace ReportGenerator
 		private bool _fileSaved = true;
 		private string _currentPath;
 		private List<TestingItem> _testingItems = new List<TestingItem>();
+		private List<BuildInfo> _selectedBuildInfo = new List<BuildInfo>();
 
 		public MainForm()
 		{
@@ -55,15 +56,6 @@ namespace ReportGenerator
 				try
 				{
 					BuildInfoCollection = JsonSerializer.Deserialize<BuildInfo[]>(File.ReadAllBytes(path));
-					if (BuildInfoCollection.Length > 0)
-					{
-						foreach (BuildInfo build in BuildInfoCollection)
-						{
-							string info = build.branch + "." + build.build + " CL " + build.cl + " " + build.environment;
-							if (!comboBox_buildinfo.Items.Contains(info))
-								comboBox_buildinfo.Items.Add(info);
-						}
-					}
 				}
 				catch (Exception ex)
 				{
@@ -126,6 +118,21 @@ namespace ReportGenerator
 				FormReference.HyperlinkRetrieverForm.Show();
 			else
 				FormReference.HyperlinkRetrieverForm.Activate();
+		}
+
+		private void BuildInfoSelection_OnClick(object sender, EventArgs e)
+		{
+			Form_BuildInfoSelection form_buildSelection = new Form_BuildInfoSelection(_selectedBuildInfo);
+			if (form_buildSelection.ShowDialog() == DialogResult.OK)
+			{
+				_selectedBuildInfo.Clear();
+				foreach (int selection in form_buildSelection.checkedListBox_buildInfo.CheckedIndices)
+				{
+					_selectedBuildInfo.Add(BuildInfoCollection[selection]);
+				}
+
+				button_buildInfoSelection.Text = _selectedBuildInfo.Count > 0 ? (_selectedBuildInfo.Count > 1 ? "Multiple Build Selected" : _selectedBuildInfo[0].ToString()) : "Select a build...";
+			}
 		}
 
 		private void ToDate_OnValueChanged(object sender, EventArgs e)
@@ -246,7 +253,7 @@ namespace ReportGenerator
 
 		private void SaveAs_OnClick(object sender, EventArgs e)
 		{
-			if (comboBox_buildinfo.SelectedIndex < 0)
+			if (_selectedBuildInfo.Count < 1)
 			{
 				MessageBox.Show("Missing build info.", "Error");
 				return;
@@ -326,7 +333,7 @@ namespace ReportGenerator
 
 		private void GenerateTxtFile_OnClick(object sender, EventArgs e)
 		{
-			if (comboBox_buildinfo.SelectedIndex < 0)
+			if (_selectedBuildInfo.Count < 1)
 			{
 				MessageBox.Show("Missing build info.", "Error");
 				return;
@@ -342,14 +349,29 @@ namespace ReportGenerator
 			{
 				int totalTasks = 0, totalTime = 0;
 				int[] bugAmount = CalculateBugAmount();
-				BuildInfo buildInfo = BuildInfoCollection[comboBox_buildinfo.SelectedIndex];
+
+				string branch = _selectedBuildInfo[0].branch, build = _selectedBuildInfo[0].build, cl = _selectedBuildInfo[0].cl, environment = _selectedBuildInfo[0].environment;
+				foreach (BuildInfo buildInfo in _selectedBuildInfo)
+				{
+					if (!branch.Contains(buildInfo.branch))
+						branch = branch + " & " + buildInfo.branch;
+
+					if (!build.Contains(buildInfo.build))
+						build = build + " & " + buildInfo.build;
+
+					if (!cl.Contains(buildInfo.cl))
+						cl = cl + " & " + buildInfo.cl;
+
+					if (!environment.Contains(buildInfo.environment))
+						environment = environment + " & " + buildInfo.environment;
+				}
 
 				StreamWriter sw = new StreamWriter(saveFileDialog_txt.FileName, false);
 				sw.WriteLine(dateTimePicker_from.Text.Equals(dateTimePicker_to.Text) ? dateTimePicker_from.Text : dateTimePicker_from.Text + " - " + dateTimePicker_to.Text);
-				sw.WriteLine("branch: " + buildInfo.branch);
-				sw.WriteLine("build: " + buildInfo.build);
-				sw.WriteLine("CL: " + buildInfo.cl);
-				sw.WriteLine("environment: " + buildInfo.environment);
+				sw.WriteLine("branch: " + branch);
+				sw.WriteLine("build: " + build);
+				sw.WriteLine("CL: " + cl);
+				sw.WriteLine("environment: " + environment);
 				sw.WriteLine(string.Format("Number of bugs found {0}, reopened {1}, closed {2}", bugAmount[0], bugAmount[1], bugAmount[2]));
 				sw.WriteLine("Build installation time: " + textBox_installTime.Text + "m");
 				sw.WriteLine();
@@ -522,7 +544,7 @@ namespace ReportGenerator
 		{
 			string date = dateTimePicker_from.Text.Equals(dateTimePicker_to.Text) ? dateTimePicker_from.Text : dateTimePicker_from.Text + " - " + dateTimePicker_to.Text;
 			int.TryParse(textBox_installTime.Text, out int time);
-			Report report = new Report(date, BuildInfoCollection[comboBox_buildinfo.SelectedIndex], time, _testingItems);
+			Report report = new Report(date, _selectedBuildInfo, time, _testingItems);
 			File.WriteAllBytes(path, JsonSerializer.Serialize(report));
 
 			this.Text = Path.GetFileNameWithoutExtension(path) + " - Report Generator " + Version;
@@ -532,7 +554,7 @@ namespace ReportGenerator
 
 		private bool SaveFile()
 		{
-			if (comboBox_buildinfo.SelectedIndex < 0)
+			if (_selectedBuildInfo.Count < 1)
 			{
 				MessageBox.Show("Missing build info.", "Error");
 				return false;
@@ -575,11 +597,11 @@ namespace ReportGenerator
 
 		private void ResetAll()
 		{
-			comboBox_buildinfo.Items.Clear();
-			comboBox_buildinfo.SelectedIndex = -1;
+			button_buildInfoSelection.Text = "Select a build...";
 			textBox_installTime.Text = "";
 			treeView_tasklist.Nodes.Clear();
 			_testingItems.Clear();
+			_selectedBuildInfo.Clear();
 			_fileSaved = true;
 			_currentPath = "";
 			InitializeComponent_Post();
@@ -648,29 +670,31 @@ namespace ReportGenerator
 				dateTimePicker_to.Value = dateTimePicker_from.Value;
 			}
 
-			if (BuildInfoCollection == null)
+			if (report.buildInfo.Count > 0)
 			{
-				BuildInfoCollection = new BuildInfo[1];
-				BuildInfoCollection[0] = report.buildInfo;
-
-				comboBox_buildinfo.Items.Add(report.buildInfo.branch + "." + report.buildInfo.build + " CL " + report.buildInfo.cl + " " + report.buildInfo.environment);
-				comboBox_buildinfo.SelectedIndex = comboBox_buildinfo.Items.Count - 1;
-			}
-			else
-			{
-				int buildInfoIndex = new List<BuildInfo>(BuildInfoCollection).FindIndex(x => x.Equals(report.buildInfo));
-				if (buildInfoIndex < 0)
+				if (BuildInfoCollection == null)
 				{
-					BuildInfo[] newCollection = new BuildInfo[BuildInfoCollection.Length + 1];
-					BuildInfoCollection.CopyTo(newCollection, 0);
-					newCollection[BuildInfoCollection.Length] = report.buildInfo;
-					BuildInfoCollection = newCollection;
+					BuildInfoCollection = new BuildInfo[report.buildInfo.Count];
 
-					comboBox_buildinfo.Items.Add(report.buildInfo.branch + "." + report.buildInfo.build + " CL " + report.buildInfo.cl + " " + report.buildInfo.environment);
-					comboBox_buildinfo.SelectedIndex = comboBox_buildinfo.Items.Count - 1;
+					for (int i = 0; i < report.buildInfo.Count; i++)
+						BuildInfoCollection[i] = report.buildInfo[i];
 				}
 				else
-					comboBox_buildinfo.SelectedIndex = buildInfoIndex;
+				{
+					foreach (var buildInfo in report.buildInfo)
+					{
+						int buildInfoIndex = new List<BuildInfo>(BuildInfoCollection).FindIndex(x => x.Equals(buildInfo));
+						if (buildInfoIndex < 0)
+						{
+							BuildInfo[] newCollection = new BuildInfo[BuildInfoCollection.Length + 1];
+							BuildInfoCollection.CopyTo(newCollection, 0);
+							newCollection[BuildInfoCollection.Length] = buildInfo;
+							BuildInfoCollection = newCollection;
+						}
+					}
+				}
+				_selectedBuildInfo = report.buildInfo;
+				button_buildInfoSelection.Text = report.buildInfo.Count > 1 ? "Multiple Build Selected" : report.buildInfo[0].ToString();
 			}
 
 			textBox_installTime.Text = report.installTime.ToString();

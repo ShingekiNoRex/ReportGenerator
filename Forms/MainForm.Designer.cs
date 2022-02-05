@@ -50,7 +50,6 @@ namespace ReportGenerator
 			this.label_date_to = new System.Windows.Forms.Label();
 			this.dateTimePicker_to = new System.Windows.Forms.DateTimePicker();
 			this.label_buildinfo = new System.Windows.Forms.Label();
-			this.comboBox_buildinfo = new System.Windows.Forms.ComboBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.label_installTime = new System.Windows.Forms.Label();
@@ -70,6 +69,7 @@ namespace ReportGenerator
 			this.saveFileDialog_json = new System.Windows.Forms.SaveFileDialog();
 			this.openFileDialog_json = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog_txt = new System.Windows.Forms.SaveFileDialog();
+			this.button_buildInfoSelection = new System.Windows.Forms.Button();
 			this.mainMenuStrip.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -255,17 +255,6 @@ namespace ReportGenerator
 			this.label_buildinfo.Text = "Build Info:";
 			this.label_buildinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// comboBox_buildinfo
-			// 
-			this.comboBox_buildinfo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox_buildinfo.FormattingEnabled = true;
-			this.comboBox_buildinfo.Location = new System.Drawing.Point(116, 3);
-			this.comboBox_buildinfo.Name = "comboBox_buildinfo";
-			this.comboBox_buildinfo.Size = new System.Drawing.Size(316, 25);
-			this.comboBox_buildinfo.TabIndex = 0;
-			this.comboBox_buildinfo.Tag = "";
-			this.comboBox_buildinfo.SelectedIndexChanged += new System.EventHandler(this.OnReportChanged);
-			// 
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
@@ -339,7 +328,7 @@ namespace ReportGenerator
 			// flowLayoutPanel2
 			// 
 			this.flowLayoutPanel2.Controls.Add(this.label_buildinfo);
-			this.flowLayoutPanel2.Controls.Add(this.comboBox_buildinfo);
+			this.flowLayoutPanel2.Controls.Add(this.button_buildInfoSelection);
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 38);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
 			this.flowLayoutPanel2.Size = new System.Drawing.Size(448, 29);
@@ -457,6 +446,16 @@ namespace ReportGenerator
 			this.saveFileDialog_txt.Filter = "Text File|*.txt";
 			this.saveFileDialog_txt.RestoreDirectory = true;
 			// 
+			// button_buildInfoSelection
+			// 
+			this.button_buildInfoSelection.Location = new System.Drawing.Point(116, 3);
+			this.button_buildInfoSelection.Name = "button_buildInfoSelection";
+			this.button_buildInfoSelection.Size = new System.Drawing.Size(316, 23);
+			this.button_buildInfoSelection.TabIndex = 2;
+			this.button_buildInfoSelection.Text = "Select a build...";
+			this.button_buildInfoSelection.UseVisualStyleBackColor = true;
+			this.button_buildInfoSelection.Click += new System.EventHandler(this.BuildInfoSelection_OnClick);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -498,7 +497,6 @@ namespace ReportGenerator
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.Label label_buildinfo;
-		private System.Windows.Forms.ComboBox comboBox_buildinfo;
 		private System.Windows.Forms.Label label_date;
 		private System.Windows.Forms.Label label_date_from;
 		private System.Windows.Forms.DateTimePicker dateTimePicker_from;
@@ -524,6 +522,7 @@ namespace ReportGenerator
 		private System.Windows.Forms.OpenFileDialog openFileDialog_json;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog_txt;
 		private System.Windows.Forms.ToolStripMenuItem hyperlinkRetrieverToolStripMenuItem;
+		private System.Windows.Forms.Button button_buildInfoSelection;
 	}
 }
 

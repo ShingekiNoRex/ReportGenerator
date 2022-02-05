@@ -15,21 +15,6 @@
 			this.environment = environment;
 		}
 
-		public void Combine(BuildInfo other)
-		{
-			if (!branch.Contains(other.branch))
-				branch = branch + "&" + other.branch;
-
-			if (!build.Contains(other.build))
-				build = build + "&" + other.build;
-
-			if (!cl.Contains(other.cl))
-				cl = cl + "&" + other.cl;
-
-			if (!environment.Contains(other.environment))
-				environment = environment + "&" + other.environment;
-		}
-
 		public bool Equals(string branch, string build, string cl, string environment)
 		{
 			return this.branch.Equals(branch) && this.build.Equals(build) && this.cl.Equals(cl) && this.environment.Equals(environment);
@@ -55,6 +40,11 @@
 				hashCode = (hashCode * 397) ^ environment.GetHashCode();
 				return hashCode;
 			}
+		}
+
+		public override string ToString()
+		{
+			return branch + "." + build + " CL " + cl + " " + environment;
 		}
 	}
 }
