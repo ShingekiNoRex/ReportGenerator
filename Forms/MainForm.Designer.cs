@@ -57,6 +57,7 @@ namespace ReportGenerator
 			this.label_minuits = new System.Windows.Forms.Label();
 			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+			this.button_buildInfoSelection = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.button_remove = new System.Windows.Forms.Button();
 			this.button_edit = new System.Windows.Forms.Button();
@@ -69,7 +70,6 @@ namespace ReportGenerator
 			this.saveFileDialog_json = new System.Windows.Forms.SaveFileDialog();
 			this.openFileDialog_json = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog_txt = new System.Windows.Forms.SaveFileDialog();
-			this.button_buildInfoSelection = new System.Windows.Forms.Button();
 			this.mainMenuStrip.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -334,6 +334,16 @@ namespace ReportGenerator
 			this.flowLayoutPanel2.Size = new System.Drawing.Size(448, 29);
 			this.flowLayoutPanel2.TabIndex = 0;
 			// 
+			// button_buildInfoSelection
+			// 
+			this.button_buildInfoSelection.Location = new System.Drawing.Point(116, 3);
+			this.button_buildInfoSelection.Name = "button_buildInfoSelection";
+			this.button_buildInfoSelection.Size = new System.Drawing.Size(316, 23);
+			this.button_buildInfoSelection.TabIndex = 2;
+			this.button_buildInfoSelection.Text = "Select a build...";
+			this.button_buildInfoSelection.UseVisualStyleBackColor = true;
+			this.button_buildInfoSelection.Click += new System.EventHandler(this.BuildInfoSelection_OnClick);
+			// 
 			// panel1
 			// 
 			this.panel1.Controls.Add(this.button_remove);
@@ -446,16 +456,6 @@ namespace ReportGenerator
 			this.saveFileDialog_txt.Filter = "Text File|*.txt";
 			this.saveFileDialog_txt.RestoreDirectory = true;
 			// 
-			// button_buildInfoSelection
-			// 
-			this.button_buildInfoSelection.Location = new System.Drawing.Point(116, 3);
-			this.button_buildInfoSelection.Name = "button_buildInfoSelection";
-			this.button_buildInfoSelection.Size = new System.Drawing.Size(316, 23);
-			this.button_buildInfoSelection.TabIndex = 2;
-			this.button_buildInfoSelection.Text = "Select a build...";
-			this.button_buildInfoSelection.UseVisualStyleBackColor = true;
-			this.button_buildInfoSelection.Click += new System.EventHandler(this.BuildInfoSelection_OnClick);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -465,6 +465,7 @@ namespace ReportGenerator
 			this.Controls.Add(this.mainMenuStrip);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MainMenuStrip = this.mainMenuStrip;
+			this.MaximizeBox = false;
 			this.Name = "MainForm";
 			this.Text = "Untitled - Report Generator";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);

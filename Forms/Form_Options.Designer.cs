@@ -153,6 +153,7 @@ namespace ReportGenerator
 			this.Controls.Add(this.textBox_name);
 			this.Controls.Add(this.label_name);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
 			this.Name = "Form_Options";
 			this.Text = "Options";
 			this.ResumeLayout(false);

@@ -134,6 +134,7 @@ namespace ReportGenerator
 			this.Controls.Add(this.label_link);
 			this.Controls.Add(this.label_bugType);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
 			this.Name = "Form_AddBug";
 			this.Text = "Add Bug";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);

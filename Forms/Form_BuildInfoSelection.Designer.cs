@@ -72,6 +72,7 @@ namespace ReportGenerator
 			this.Controls.Add(this.button_cancel);
 			this.Controls.Add(this.button_ok);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
 			this.Name = "Form_BuildInfoSelection";
 			this.Text = "Select Build Info";
 			this.ResumeLayout(false);

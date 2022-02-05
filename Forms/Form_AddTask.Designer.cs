@@ -196,6 +196,7 @@ namespace ReportGenerator
 			this.Controls.Add(this.textBox_content);
 			this.Controls.Add(this.label_content);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
 			this.Name = "Form_AddTask";
 			this.Text = "Add Task";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
