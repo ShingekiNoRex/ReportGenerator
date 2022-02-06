@@ -131,7 +131,7 @@ namespace ReportGenerator
 					_selectedBuildInfo.Add(BuildInfoCollection[selection]);
 				}
 
-				button_buildInfoSelection.Text = _selectedBuildInfo.Count > 0 ? (_selectedBuildInfo.Count > 1 ? "Multiple Build Selected" : _selectedBuildInfo[0].ToString()) : "Select a build...";
+				button_buildInfoSelection.Text = _selectedBuildInfo.Count > 0 ? (_selectedBuildInfo.Count > 1 ? "Multiple builds selected" : _selectedBuildInfo[0].ToString()) : "Select a build...";
 			}
 		}
 
@@ -694,7 +694,7 @@ namespace ReportGenerator
 					}
 				}
 				_selectedBuildInfo = report.buildInfo;
-				button_buildInfoSelection.Text = report.buildInfo.Count > 1 ? "Multiple Build Selected" : report.buildInfo[0].ToString();
+				button_buildInfoSelection.Text = report.buildInfo.Count > 1 ? "Multiple builds selected" : report.buildInfo[0].ToString();
 			}
 
 			textBox_installTime.Text = report.installTime.ToString();
