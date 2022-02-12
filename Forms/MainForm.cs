@@ -189,6 +189,7 @@ namespace ReportGenerator
 						if (form_editTask.comboBox_title.Text.Equals(title))
 						{
 							taskItem.content = form_editTask.textBox_content.Lines[0];
+							taskItem.defects = form_editTask.textBox_defects.Text;
 							taskItem.comment = form_editTask.textBox_comment.Text;
 							taskItem.result = (TaskResult)form_editTask.comboBox_result.SelectedIndex;
 
@@ -198,7 +199,7 @@ namespace ReportGenerator
 							treeView_tasklist.SelectedNode.Text = string.Format("{0} ({1}) {2}m {3}", taskItem.content, taskItem.result, taskItem.time, taskItem.comment);
 
 							for (int i = 1; i < form_editTask.textBox_content.Lines.Length; i ++)
-								AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Lines[i], time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_comment.Text);
+								AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Lines[i], time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text);
 						}
 						else
 						{
@@ -206,7 +207,7 @@ namespace ReportGenerator
 
 							int.TryParse(form_editTask.textBox_time.Text, out int time);
 							foreach (string line in form_editTask.textBox_content.Lines)
-								AddTask(form_editTask.comboBox_title.Text, line, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_comment.Text);
+								AddTask(form_editTask.comboBox_title.Text, line, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text);
 						}
 
 						form_editTask.Close();
@@ -437,17 +438,17 @@ namespace ReportGenerator
 		#endregion
 
 		#region Public Methods
-		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Pass, string comment = "")
+		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Pass, string defects = "", string comment = "")
 		{
-			AddTask(category.title, content, time, result, comment);
+			AddTask(category.title, content, time, result, defects, comment);
 		}
 
-		public void AddTask(string title, string content, int time, TaskResult result = TaskResult.Pass, string comment = "")
+		public void AddTask(string title, string content, int time, TaskResult result = TaskResult.Pass, string defects = "", string comment = "")
 		{
 			if (string.IsNullOrWhiteSpace(content))
 				return;
 
-			TaskItem taskItem = new TaskItem(content, time, result, comment);
+			TaskItem taskItem = new TaskItem(content, time, ConfigSettings.Settings["Name"], result, defects, comment);
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
 				_testingItems.Find(item => item.Equals(title)).tasks.Add(taskItem);
@@ -478,7 +479,7 @@ namespace ReportGenerator
 			if (string.IsNullOrWhiteSpace(link))
 				return;
 
-			BugItem bugItem = new BugItem(bugType, link);
+			BugItem bugItem = new BugItem(bugType, link, ConfigSettings.Settings["Name"]);
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
 				_testingItems.Find(item => item.Equals(title)).bugs.Add(bugItem);
@@ -703,7 +704,7 @@ namespace ReportGenerator
 			foreach (var testingItem in report.testings)
 			{
 				foreach (var task in testingItem.tasks)
-					AddTask(testingItem.category, task.content, task.time, task.result, task.comment);
+					AddTask(testingItem.category, task.content, task.time, task.result, task.defects, task.comment);
 				foreach (var bug in testingItem.bugs)
 					AddBug(testingItem.category, bug.type, bug.link);
 			}

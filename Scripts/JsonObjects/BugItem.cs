@@ -11,11 +11,13 @@
 	{
 		public string link;
 		public BugType type;
+		public string reporter;
 
-		public BugItem(BugType type, string link)
+		public BugItem(BugType type, string link, string reporter)
 		{
 			this.type = type;
 			this.link = link;
+			this.reporter = reporter;
 		}
 	}
 }

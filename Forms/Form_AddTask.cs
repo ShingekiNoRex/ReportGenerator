@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 
 namespace ReportGenerator
@@ -69,9 +68,9 @@ namespace ReportGenerator
 			{
 				MessageBox.Show("Missing time, title or content.", "Error");
 			}
-			else if (comboBox_result.SelectedIndex != 0 && string.IsNullOrWhiteSpace(textBox_comment.Text))
+			else if (comboBox_result.SelectedIndex != 0 && (string.IsNullOrWhiteSpace(textBox_defects.Text) || string.IsNullOrWhiteSpace(textBox_comment.Text)))
 			{
-				MessageBox.Show("Missing comment.", "Error");
+				MessageBox.Show("Missing defects or comment.", "Error");
 			}
 			else
 			{
@@ -83,13 +82,14 @@ namespace ReportGenerator
 				{
 					int.TryParse(textBox_time.Text, out int time);
 					foreach (string line in textBox_content.Lines)
-						FormReference.MainForm.AddTask(comboBox_title.Text, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_comment.Text);
+						FormReference.MainForm.AddTask(comboBox_title.Text, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_defects.Text, textBox_comment.Text);
 				}
 			}
 		}
 
 		private void Result_OnSelectedIndexChanged(object sender, EventArgs e)
 		{
+			label_defects.Text = comboBox_result.SelectedIndex == 0 ? "Defects (Optional):" : "Defects:";
 			label_comment.Text = comboBox_result.SelectedIndex == 0 ? "Comment (Optional):" : "Comment:";
 		}
 	}

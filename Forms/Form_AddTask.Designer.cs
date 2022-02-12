@@ -42,6 +42,8 @@ namespace ReportGenerator
 			this.comboBox_title = new System.Windows.Forms.ComboBox();
 			this.label_result = new System.Windows.Forms.Label();
 			this.comboBox_result = new System.Windows.Forms.ComboBox();
+			this.textBox_defects = new System.Windows.Forms.TextBox();
+			this.label_defects = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label_content
@@ -70,9 +72,9 @@ namespace ReportGenerator
 			this.label_time.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.label_time.Location = new System.Drawing.Point(218, 144);
 			this.label_time.Name = "label_time";
-			this.label_time.Size = new System.Drawing.Size(55, 22);
+			this.label_time.Size = new System.Drawing.Size(77, 22);
 			this.label_time.TabIndex = 2;
-			this.label_time.Text = "Time:";
+			this.label_time.Text = "Elapsed:";
 			// 
 			// textBox_time
 			// 
@@ -99,7 +101,7 @@ namespace ReportGenerator
 			// 
 			this.label_comment.AutoSize = true;
 			this.label_comment.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.label_comment.Location = new System.Drawing.Point(12, 197);
+			this.label_comment.Location = new System.Drawing.Point(12, 247);
 			this.label_comment.Name = "label_comment";
 			this.label_comment.Size = new System.Drawing.Size(167, 19);
 			this.label_comment.TabIndex = 5;
@@ -108,14 +110,14 @@ namespace ReportGenerator
 			// textBox_comment
 			// 
 			this.textBox_comment.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.textBox_comment.Location = new System.Drawing.Point(12, 220);
+			this.textBox_comment.Location = new System.Drawing.Point(12, 270);
 			this.textBox_comment.Name = "textBox_comment";
 			this.textBox_comment.Size = new System.Drawing.Size(378, 24);
 			this.textBox_comment.TabIndex = 6;
 			// 
 			// button_add
 			// 
-			this.button_add.Location = new System.Drawing.Point(56, 250);
+			this.button_add.Location = new System.Drawing.Point(56, 300);
 			this.button_add.Name = "button_add";
 			this.button_add.Size = new System.Drawing.Size(115, 33);
 			this.button_add.TabIndex = 7;
@@ -125,7 +127,7 @@ namespace ReportGenerator
 			// 
 			// button_cancel
 			// 
-			this.button_cancel.Location = new System.Drawing.Point(235, 250);
+			this.button_cancel.Location = new System.Drawing.Point(235, 300);
 			this.button_cancel.Name = "button_cancel";
 			this.button_cancel.Size = new System.Drawing.Size(115, 33);
 			this.button_cancel.TabIndex = 8;
@@ -176,11 +178,31 @@ namespace ReportGenerator
 			this.comboBox_result.TabIndex = 12;
 			this.comboBox_result.SelectedIndexChanged += new System.EventHandler(this.Result_OnSelectedIndexChanged);
 			// 
+			// textBox_defects
+			// 
+			this.textBox_defects.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.textBox_defects.Location = new System.Drawing.Point(12, 220);
+			this.textBox_defects.Name = "textBox_defects";
+			this.textBox_defects.Size = new System.Drawing.Size(378, 24);
+			this.textBox_defects.TabIndex = 14;
+			// 
+			// label_defects
+			// 
+			this.label_defects.AutoSize = true;
+			this.label_defects.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.label_defects.Location = new System.Drawing.Point(12, 197);
+			this.label_defects.Name = "label_defects";
+			this.label_defects.Size = new System.Drawing.Size(149, 19);
+			this.label_defects.TabIndex = 13;
+			this.label_defects.Text = "Defects (optional):";
+			// 
 			// Form_AddTask
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(402, 289);
+			this.ClientSize = new System.Drawing.Size(402, 343);
+			this.Controls.Add(this.textBox_defects);
+			this.Controls.Add(this.label_defects);
 			this.Controls.Add(this.comboBox_result);
 			this.Controls.Add(this.label_result);
 			this.Controls.Add(this.comboBox_title);
@@ -220,5 +242,7 @@ namespace ReportGenerator
 		private System.Windows.Forms.Button button_cancel;
 		private System.Windows.Forms.Label label_title;
 		private System.Windows.Forms.Label label_result;
+		public System.Windows.Forms.TextBox textBox_defects;
+		private System.Windows.Forms.Label label_defects;
 	}
 }
