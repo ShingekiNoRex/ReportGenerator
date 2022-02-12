@@ -19,5 +19,20 @@
 			this.link = link;
 			this.reporter = reporter;
 		}
+
+		public bool Equals(string link)
+		{
+			return this.link.Equals(link);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is BugItem other && Equals(other.link);
+		}
+
+		public override int GetHashCode()
+		{
+			return link.GetHashCode();
+		}
 	}
 }

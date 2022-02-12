@@ -68,7 +68,7 @@ namespace ReportGenerator
 			{
 				MessageBox.Show("Missing time, title or content.", "Error");
 			}
-			else if (comboBox_result.SelectedIndex != 0 && (string.IsNullOrWhiteSpace(textBox_defects.Text) || string.IsNullOrWhiteSpace(textBox_comment.Text)))
+			else if (comboBox_result.SelectedIndex != 0 && string.IsNullOrWhiteSpace(textBox_defects.Text) && string.IsNullOrWhiteSpace(textBox_comment.Text))
 			{
 				MessageBox.Show("Missing defects or comment.", "Error");
 			}

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Utf8Json;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace ReportGenerator
 {
@@ -18,6 +19,8 @@ namespace ReportGenerator
 		private string _currentPath;
 		private List<TestingItem> _testingItems = new List<TestingItem>();
 		private List<BuildInfo> _selectedBuildInfo = new List<BuildInfo>();
+
+		private readonly Color[] _resultColor = { Color.Green, Color.Red, Color.Gold, Color.Orange };
 
 		public MainForm()
 		{
@@ -493,23 +496,36 @@ namespace ReportGenerator
 				return;
 
 			TaskItem taskItem = new TaskItem(content, time, ConfigSettings.Settings["Name"], result, defects, comment);
+			TreeNode node = new TreeNode(string.Format("{0} ({1}) {2}m {3} {4}", content, result, time, defects, comment))
+			{
+				Tag = taskItem,
+				ForeColor = _resultColor[(int)result],
+			};
+
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
-				_testingItems.Find(item => item.Equals(title)).tasks.Add(taskItem);
+				TestingItem testingItem = _testingItems.Find(item => item.Equals(title));
+				if (testingItem.tasks.Contains(taskItem))
+					node.Text = "*DUPLICATE* " + node.Text;
+
+				testingItem.tasks.Add(taskItem);
 
 				if (treeView_tasklist.Nodes[title].Nodes.ContainsKey("Tasks"))
-					treeView_tasklist.Nodes[title].Nodes["Tasks"].Nodes.Add(string.Format("{0} ({1}) {2}m {3}", content, result, time, comment)).Tag = taskItem;
+					treeView_tasklist.Nodes[title].Nodes["Tasks"].Nodes.Add(node);
 				else
-					treeView_tasklist.Nodes[title].Nodes.Add("Tasks", "Tasks").Nodes.Add(string.Format("{0} ({1}) {2}m {3}", content, result, time, comment)).Tag = taskItem;
+					treeView_tasklist.Nodes[title].Nodes.Add("Tasks", "Tasks").Nodes.Add(node);
 			}
 			else
 			{
 				TestingItem testingItem = new TestingItem(title);
 				testingItem.tasks.Add(taskItem);
 				_testingItems.Add(testingItem);
-
-				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Tasks", "Tasks").Nodes.Add(string.Format("{0} ({1}) {2}m {3}", content, result, time, comment)).Tag = taskItem;
+				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Tasks", "Tasks").Nodes.Add(node);
 			}
+
+			node.Parent.Expand();
+			node.Parent.Parent.Expand();
+
 			ReportChangedIndicate();
 		}
 
@@ -524,14 +540,23 @@ namespace ReportGenerator
 				return;
 
 			BugItem bugItem = new BugItem(bugType, link, ConfigSettings.Settings["Name"]);
+			TreeNode node = new TreeNode(string.Format("{0} - {1}", bugType, link))
+			{
+				Tag = bugItem
+			};
+
 			if (treeView_tasklist.Nodes.ContainsKey(title))
 			{
-				_testingItems.Find(item => item.Equals(title)).bugs.Add(bugItem);
+				TestingItem testingItem = _testingItems.Find(item => item.Equals(title));
+				if (testingItem.bugs.Contains(bugItem))
+					node.Text = "*DUPLICATE* " + node.Text;
+
+				testingItem.bugs.Add(bugItem);
 
 				if (treeView_tasklist.Nodes[title].Nodes.ContainsKey("Bugs"))
-					treeView_tasklist.Nodes[title].Nodes["Bugs"].Nodes.Add(bugType.ToString() + " - " + link).Tag = bugItem;
+					treeView_tasklist.Nodes[title].Nodes["Bugs"].Nodes.Add(node);
 				else
-					treeView_tasklist.Nodes[title].Nodes.Add("Bugs", "Bugs").Nodes.Add(bugType.ToString() + " - " + link).Tag = bugItem;
+					treeView_tasklist.Nodes[title].Nodes.Add("Bugs", "Bugs").Nodes.Add(node);
 			}
 			else
 			{
@@ -539,8 +564,12 @@ namespace ReportGenerator
 				testingItem.bugs.Add(bugItem);
 				_testingItems.Add(testingItem);
 
-				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Bugs", "Bugs").Nodes.Add(bugType.ToString() + " - " + link).Tag = bugItem;
+				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Bugs", "Bugs").Nodes.Add(node);
 			}
+
+			node.Parent.Expand();
+			node.Parent.Parent.Expand();
+
 			ReportChangedIndicate();
 		}
 

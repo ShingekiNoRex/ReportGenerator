@@ -26,5 +26,20 @@
 			this.defects = defects;
 			this.comment = comment;
 		}
+
+		public bool Equals(string content)
+		{
+			return this.content.Equals(content);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is TaskItem other && Equals(other.content);
+		}
+
+		public override int GetHashCode()
+		{
+			return content.GetHashCode();
+		}
 	}
 }
