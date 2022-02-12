@@ -401,30 +401,18 @@ namespace ReportGenerator
 				int[] bugAmount = CalculateBugAmount();
 				Regex reg = new Regex(@ConfigSettings.GlobalSettings["DefectsRegex"]);
 
-				string branch = _selectedBuildInfo[0].branch, build = _selectedBuildInfo[0].build, cl = _selectedBuildInfo[0].cl, environment = _selectedBuildInfo[0].environment;
 				foreach (BuildInfo buildInfo in _selectedBuildInfo)
 				{
-					if (!branch.Contains(buildInfo.branch))
-						branch = branch + " & " + buildInfo.branch;
-
-					if (!build.Contains(buildInfo.build))
-						build = build + " & " + buildInfo.build;
-
-					if (!cl.Contains(buildInfo.cl))
-						cl = cl + " & " + buildInfo.cl;
-
-					if (!environment.Contains(buildInfo.environment))
-						environment = environment + " & " + buildInfo.environment;
+					string.Format("{0}.{1} CL {2} ({3})", buildInfo.branch, buildInfo.build, buildInfo.cl, buildInfo.environment);
 				}
 
 				StreamWriter sw = new StreamWriter(saveFileDialog_txt.FileName, false);
 				sw.WriteLine(dateTimePicker_from.Text.Equals(dateTimePicker_to.Text) ? dateTimePicker_from.Text : dateTimePicker_from.Text + " - " + dateTimePicker_to.Text);
-				sw.WriteLine("branch: " + branch);
-				sw.WriteLine("build: " + build);
-				sw.WriteLine("CL: " + cl);
-				sw.WriteLine("environment: " + environment);
-				sw.WriteLine(string.Format("Number of bugs found {0}, reopened {1}, closed {2}", bugAmount[0], bugAmount[1], bugAmount[2]));
-				sw.WriteLine("Build installation time: " + textBox_installTime.Text + "m");
+				sw.WriteLine("Testing in build(s): ");
+				foreach (BuildInfo buildInfo in _selectedBuildInfo)
+				{
+					sw.WriteLine(string.Format("{0}.{1} CL {2} ({3})", buildInfo.branch, buildInfo.build, buildInfo.cl, buildInfo.environment));
+				}
 				sw.WriteLine();
 
 				foreach (var testingItem in _testingItems)
@@ -455,7 +443,7 @@ namespace ReportGenerator
 
 					if (testingItem.bugs.Count > 0)
 					{
-						sw.WriteLine("Bugs:");
+						sw.WriteLine("Bug(s):");
 						foreach (var bug in testingItem.bugs)
 							sw.WriteLine(string.Format("{0} ({1})", bug.link, bug.type.ToString()));
 					}
@@ -463,7 +451,9 @@ namespace ReportGenerator
 					sw.WriteLine();
 				}
 
+				sw.WriteLine("Build installation time: " + textBox_installTime.Text + "m");
 				sw.WriteLine(string.Format("Number of tests executed: {0} ({1}m)", totalTasks, totalTime));
+				sw.WriteLine(string.Format("Number of bugs found {0}, reopened {1}, closed {2}", bugAmount[0], bugAmount[1], bugAmount[2]));
 				sw.Close();
 			}
 		}
