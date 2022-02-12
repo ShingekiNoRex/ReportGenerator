@@ -149,6 +149,7 @@ namespace ReportGenerator
 			this.button_browseGlobalCfg.TabIndex = 12;
 			this.button_browseGlobalCfg.Text = "Browse...";
 			this.button_browseGlobalCfg.UseVisualStyleBackColor = true;
+			this.button_browseGlobalCfg.Click += new System.EventHandler(this.GlobalCfgPathBrowse_OnClick);
 			// 
 			// textBox_globalCfg
 			// 

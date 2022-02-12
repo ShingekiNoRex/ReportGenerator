@@ -11,10 +11,12 @@ namespace ReportGenerator
 
 			if (ConfigSettings.Settings.TryGetValue("Name", out string name))
 				textBox_name.Text = name;
-			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string buildPath))
-				textBox_buildInfoPath.Text = buildPath;
-			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out string titlesPath))
-				textBox_titlesPath.Text = titlesPath;
+			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path))
+				textBox_buildInfoPath.Text = path;
+			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out path))
+				textBox_titlesPath.Text = path;
+			if (ConfigSettings.Settings.TryGetValue("GlobalConfig", out path))
+				textBox_globalCfg.Text = path;
 		}
 
 		private void BuildInfoBrowse_OnClick(object sender, EventArgs e)
@@ -32,7 +34,7 @@ namespace ReportGenerator
 		private void GlobalCfgPathBrowse_OnClick(object sender, EventArgs e)
 		{
 			if (openFileDialog_cfg.ShowDialog() == DialogResult.OK)
-				textBox_titlesPath.Text = openFileDialog_cfg.FileName;
+				textBox_globalCfg.Text = openFileDialog_cfg.FileName;
 		}
 
 		private void Cancel_OnClick(object sender, EventArgs e)
@@ -43,8 +45,8 @@ namespace ReportGenerator
 		private void Save_OnClick(object sender, EventArgs e)
 		{
 			ConfigSettings.Save(textBox_name.Text, textBox_buildInfoPath.Text, textBox_titlesPath.Text, textBox_globalCfg.Text);
-			FormReference.MainForm.ValidateConfig();
 			this.Dispose();
+			FormReference.MainForm.ValidateConfig();
 		}
 	}
 }

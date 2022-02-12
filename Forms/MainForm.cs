@@ -51,70 +51,76 @@ namespace ReportGenerator
 			if (!ConfigSettings.Settings.ContainsKey("Name") || string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
 				return false;
 
-			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path))
-				BuildInfoProcessor(path);
-			else return false;
+			if (!ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path) || !BuildInfoProcessor(path))
+				return false;
 
-			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out path))
-				TitlesProcessor(path);
-			else return false;
+			if (!ConfigSettings.Settings.TryGetValue("TitlesPath", out path) || !TitlesProcessor(path))
+				return false;
 
-			if (ConfigSettings.Settings.TryGetValue("GlobalConfig", out path))
-				GlobalConfigProcessor(path);
-			else return false;
+			if (!ConfigSettings.Settings.TryGetValue("GlobalConfig", out path) || !GlobalConfigProcessor(path))
+				return false;
 
 			return true;
 		}
 
-		private void BuildInfoProcessor(string path)
+		private bool BuildInfoProcessor(string path)
 		{
-			if (File.Exists(path))
+			if (!File.Exists(path))
+				return false;
+
+			try
 			{
-				try
-				{
-					BuildInfoCollection = JsonSerializer.Deserialize<BuildInfo[]>(File.ReadAllBytes(path));
-				}
-				catch (Exception ex)
-				{
-					Debug.WriteLine("Error when loading BuildInfo:" + ex);
-				}
+				BuildInfoCollection = JsonSerializer.Deserialize<BuildInfo[]>(File.ReadAllBytes(path));
 			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("Error when loading BuildInfo:" + ex);
+				return false;
+			}
+
+			return true;
 		}
 
-		private void TitlesProcessor(string path)
+		private bool TitlesProcessor(string path)
 		{
-			if (File.Exists(path))
+			if (!File.Exists(path))
+				return false;
+
+			try
 			{
-				try
-				{
-					CategoriesCollection = JsonSerializer.Deserialize<Category[]>(File.ReadAllBytes(path));
-				}
-				catch (Exception ex)
-				{
-					Debug.WriteLine("Error when loading Titles:" + ex);
-				}
+				CategoriesCollection = JsonSerializer.Deserialize<Category[]>(File.ReadAllBytes(path));
 			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("Error when loading Titles:" + ex);
+				return false;
+			}
+
+			return true;
 		}
 
-		private void GlobalConfigProcessor(string path)
+		private bool GlobalConfigProcessor(string path)
 		{
-			if (File.Exists(path))
+			if (!File.Exists(path))
+				return false;
+
+			try
 			{
-				try
+				foreach (string line in File.ReadAllLines(path))
 				{
-					foreach (string line in File.ReadAllLines(path))
+					if (line.Contains('='))
 					{
-						if (line.Contains('='))
-						{
-							ConfigSettings.GlobalSettings.Add(line.Split('=')[0], line.Split('=')[1]);
-						}
+						ConfigSettings.GlobalSettings.Add(line.Split('=')[0], line.Split('=')[1]);
 					}
 				}
-				catch (Exception ex)
-				{
-					Debug.WriteLine("Error when loading GlobalConfig:" + ex);
-				}
 			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("Error when loading GlobalConfig:" + ex);
+				return false;
+			}
+
+			return true;
 		}
 		#endregion
 
@@ -542,7 +548,7 @@ namespace ReportGenerator
 		{
 			if (!ValidateConfigSettings())
 			{
-				MessageBox.Show("Failed to validate config settings.", "Error");
+				MessageBox.Show("Failed to validate config settings.", "Failed to load");
 				new Form_Options().ShowDialog();
 			}
 		}
