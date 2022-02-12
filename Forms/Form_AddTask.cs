@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ReportGenerator
@@ -74,15 +75,23 @@ namespace ReportGenerator
 			}
 			else
 			{
-				if (_isEditorMode)
+				Regex reg = new Regex(@ConfigSettings.GlobalSettings["DefectsRegex"]);
+				if (!string.IsNullOrWhiteSpace(textBox_defects.Text) && !reg.IsMatch(textBox_defects.Text))
 				{
-					this.DialogResult = DialogResult.OK;
+					MessageBox.Show("Defects format mismatch.", "Error");
 				}
 				else
 				{
-					int.TryParse(textBox_time.Text, out int time);
-					foreach (string line in textBox_content.Lines)
-						FormReference.MainForm.AddTask(comboBox_title.Text, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_defects.Text, textBox_comment.Text);
+					if (_isEditorMode)
+					{
+						this.DialogResult = DialogResult.OK;
+					}
+					else
+					{
+						int.TryParse(textBox_time.Text, out int time);
+						foreach (string line in textBox_content.Lines)
+							FormReference.MainForm.AddTask(comboBox_title.Text, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_defects.Text, textBox_comment.Text);
+					}
 				}
 			}
 		}

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Utf8Json;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace ReportGenerator
 {
@@ -398,6 +399,7 @@ namespace ReportGenerator
 			{
 				int totalTasks = 0, totalTime = 0;
 				int[] bugAmount = CalculateBugAmount();
+				Regex reg = new Regex(@ConfigSettings.GlobalSettings["DefectsRegex"]);
 
 				string branch = _selectedBuildInfo[0].branch, build = _selectedBuildInfo[0].build, cl = _selectedBuildInfo[0].cl, environment = _selectedBuildInfo[0].environment;
 				foreach (BuildInfo buildInfo in _selectedBuildInfo)
@@ -438,7 +440,17 @@ namespace ReportGenerator
 
 					foreach (var task in testingItem.tasks)
 					{
-						sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
+						if (!string.IsNullOrWhiteSpace(task.defects))
+						{
+							string defects = "";
+							foreach (Match match in reg.Matches(task.defects))
+							{
+								defects = string.Format("{0}+[{1}|{2}{1}]", defects, match.Value, ConfigSettings.GlobalSettings["DefectsLink"]);
+							}
+							sw.WriteLine(string.Format("{0} ({1}) {2}m {3} {4}", task.content, task.result, task.time, defects, task.comment));
+						}
+						else
+							sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
 					}
 
 					if (testingItem.bugs.Count > 0)
