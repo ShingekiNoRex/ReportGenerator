@@ -29,6 +29,12 @@ namespace ReportGenerator
 				textBox_titlesPath.Text = openFileDialog_json.FileName;
 		}
 
+		private void GlobalCfgPathBrowse_OnClick(object sender, EventArgs e)
+		{
+			if (openFileDialog_cfg.ShowDialog() == DialogResult.OK)
+				textBox_titlesPath.Text = openFileDialog_cfg.FileName;
+		}
+
 		private void Cancel_OnClick(object sender, EventArgs e)
 		{
 			this.Dispose();
@@ -36,8 +42,8 @@ namespace ReportGenerator
 
 		private void Save_OnClick(object sender, EventArgs e)
 		{
-			ConfigSettings.Save(textBox_name.Text, textBox_buildInfoPath.Text, textBox_titlesPath.Text);
-			FormReference.MainForm.ReloadConfig();
+			ConfigSettings.Save(textBox_name.Text, textBox_buildInfoPath.Text, textBox_titlesPath.Text, textBox_globalCfg.Text);
+			FormReference.MainForm.ValidateConfig();
 			this.Dispose();
 		}
 	}

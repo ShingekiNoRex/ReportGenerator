@@ -40,6 +40,10 @@ namespace ReportGenerator
 			this.button_browseTitlesPath = new System.Windows.Forms.Button();
 			this.button_save = new System.Windows.Forms.Button();
 			this.button_cancel = new System.Windows.Forms.Button();
+			this.button_browseGlobalCfg = new System.Windows.Forms.Button();
+			this.textBox_globalCfg = new System.Windows.Forms.TextBox();
+			this.label_globalCfg = new System.Windows.Forms.Label();
+			this.openFileDialog_cfg = new System.Windows.Forms.OpenFileDialog();
 			this.SuspendLayout();
 			// 
 			// label_name
@@ -118,7 +122,7 @@ namespace ReportGenerator
 			// button_save
 			// 
 			this.button_save.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button_save.Location = new System.Drawing.Point(71, 107);
+			this.button_save.Location = new System.Drawing.Point(71, 134);
 			this.button_save.Name = "button_save";
 			this.button_save.Size = new System.Drawing.Size(120, 30);
 			this.button_save.TabIndex = 8;
@@ -129,7 +133,7 @@ namespace ReportGenerator
 			// button_cancel
 			// 
 			this.button_cancel.Font = new System.Drawing.Font("Microsoft YaHei UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button_cancel.Location = new System.Drawing.Point(244, 107);
+			this.button_cancel.Location = new System.Drawing.Point(244, 134);
 			this.button_cancel.Name = "button_cancel";
 			this.button_cancel.Size = new System.Drawing.Size(120, 30);
 			this.button_cancel.TabIndex = 9;
@@ -137,11 +141,44 @@ namespace ReportGenerator
 			this.button_cancel.UseVisualStyleBackColor = true;
 			this.button_cancel.Click += new System.EventHandler(this.Cancel_OnClick);
 			// 
+			// button_browseGlobalCfg
+			// 
+			this.button_browseGlobalCfg.Location = new System.Drawing.Point(351, 95);
+			this.button_browseGlobalCfg.Name = "button_browseGlobalCfg";
+			this.button_browseGlobalCfg.Size = new System.Drawing.Size(75, 23);
+			this.button_browseGlobalCfg.TabIndex = 12;
+			this.button_browseGlobalCfg.Text = "Browse...";
+			this.button_browseGlobalCfg.UseVisualStyleBackColor = true;
+			// 
+			// textBox_globalCfg
+			// 
+			this.textBox_globalCfg.Location = new System.Drawing.Point(129, 95);
+			this.textBox_globalCfg.Name = "textBox_globalCfg";
+			this.textBox_globalCfg.Size = new System.Drawing.Size(216, 23);
+			this.textBox_globalCfg.TabIndex = 11;
+			// 
+			// label_globalCfg
+			// 
+			this.label_globalCfg.AutoSize = true;
+			this.label_globalCfg.Location = new System.Drawing.Point(12, 98);
+			this.label_globalCfg.Name = "label_globalCfg";
+			this.label_globalCfg.Size = new System.Drawing.Size(117, 17);
+			this.label_globalCfg.TabIndex = 10;
+			this.label_globalCfg.Text = "Global Config Path";
+			// 
+			// openFileDialog_cfg
+			// 
+			this.openFileDialog_cfg.Filter = "Config File|*.cfg";
+			this.openFileDialog_cfg.RestoreDirectory = true;
+			// 
 			// Form_Options
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(435, 150);
+			this.ClientSize = new System.Drawing.Size(435, 176);
+			this.Controls.Add(this.button_browseGlobalCfg);
+			this.Controls.Add(this.textBox_globalCfg);
+			this.Controls.Add(this.label_globalCfg);
 			this.Controls.Add(this.button_cancel);
 			this.Controls.Add(this.button_save);
 			this.Controls.Add(this.button_browseTitlesPath);
@@ -174,5 +211,9 @@ namespace ReportGenerator
 		private System.Windows.Forms.Button button_browseTitlesPath;
 		private System.Windows.Forms.Button button_save;
 		private System.Windows.Forms.Button button_cancel;
+		private System.Windows.Forms.Button button_browseGlobalCfg;
+		private System.Windows.Forms.TextBox textBox_globalCfg;
+		private System.Windows.Forms.Label label_globalCfg;
+		private System.Windows.Forms.OpenFileDialog openFileDialog_cfg;
 	}
 }

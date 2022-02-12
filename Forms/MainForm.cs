@@ -25,6 +25,7 @@ namespace ReportGenerator
 			InitializeComponent();
 			ConfigSettings.Load();
 			InitializeComponent_Post();
+			ValidateConfig();
 		}
 
 		#region Initialization
@@ -43,10 +44,26 @@ namespace ReportGenerator
 			dateTimePicker_to.Value = DateTime.Today;
 			dateTimePicker_from.Value = DateTime.Today;
 			this.Text = "Untitled - Report Generator " + Version;
+		}
+
+		private bool ValidateConfigSettings()
+		{
+			if (!ConfigSettings.Settings.ContainsKey("Name") || string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
+				return false;
+
 			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path))
 				BuildInfoProcessor(path);
+			else return false;
+
 			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out path))
 				TitlesProcessor(path);
+			else return false;
+
+			if (ConfigSettings.Settings.TryGetValue("GlobalConfig", out path))
+				GlobalConfigProcessor(path);
+			else return false;
+
+			return true;
 		}
 
 		private void BuildInfoProcessor(string path)
@@ -75,6 +92,27 @@ namespace ReportGenerator
 				catch (Exception ex)
 				{
 					Debug.WriteLine("Error when loading Titles:" + ex);
+				}
+			}
+		}
+
+		private void GlobalConfigProcessor(string path)
+		{
+			if (File.Exists(path))
+			{
+				try
+				{
+					foreach (string line in File.ReadAllLines(path))
+					{
+						if (line.Contains('='))
+						{
+							ConfigSettings.GlobalSettings.Add(line.Split('=')[0], line.Split('=')[1]);
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Debug.WriteLine("Error when loading GlobalConfig:" + ex);
 				}
 			}
 		}
@@ -500,12 +538,13 @@ namespace ReportGenerator
 			ReportChangedIndicate();
 		}
 
-		public void ReloadConfig()
+		public void ValidateConfig()
 		{
-			if (ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path))
-				BuildInfoProcessor(path);
-			if (ConfigSettings.Settings.TryGetValue("TitlesPath", out path))
-				TitlesProcessor(path);
+			if (!ValidateConfigSettings())
+			{
+				MessageBox.Show("Failed to validate config settings.", "Error");
+				new Form_Options().ShowDialog();
+			}
 		}
 		#endregion
 
