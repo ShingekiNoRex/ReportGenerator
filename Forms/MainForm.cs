@@ -132,6 +132,7 @@ namespace ReportGenerator
 				}
 
 				button_buildInfoSelection.Text = _selectedBuildInfo.Count > 0 ? (_selectedBuildInfo.Count > 1 ? "Multiple builds selected" : _selectedBuildInfo[0].ToString()) : "Select a build...";
+				ReportChangedIndicate();
 			}
 		}
 
