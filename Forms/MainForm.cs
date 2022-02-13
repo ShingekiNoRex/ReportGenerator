@@ -11,7 +11,7 @@ namespace ReportGenerator
 {
 	public partial class MainForm : Form
 	{
-		public const string Version = "1.4";
+		public const string Version = "1.5";
 
 		public BuildInfo[] BuildInfoCollection;
 		public Category[] CategoriesCollection;
@@ -409,7 +409,7 @@ namespace ReportGenerator
 
 				StreamWriter sw = new StreamWriter(saveFileDialog_txt.FileName, false);
 				sw.WriteLine(dateTimePicker_from.Text.Equals(dateTimePicker_to.Text) ? dateTimePicker_from.Text : dateTimePicker_from.Text + " - " + dateTimePicker_to.Text);
-				sw.WriteLine("Testing in build(s): ");
+				sw.WriteLine("Tests executed in: ");
 				foreach (BuildInfo buildInfo in _selectedBuildInfo)
 				{
 					sw.WriteLine(string.Format("{0}.{1} CL {2} ({3})", buildInfo.branch, buildInfo.build, buildInfo.cl, buildInfo.environment));
