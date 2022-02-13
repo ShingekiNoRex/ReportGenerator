@@ -435,6 +435,7 @@ namespace ReportGenerator
 			// 
 			this.treeView_tasklist.Location = new System.Drawing.Point(8, 10);
 			this.treeView_tasklist.Name = "treeView_tasklist";
+			this.treeView_tasklist.ShowNodeToolTips = true;
 			this.treeView_tasklist.Size = new System.Drawing.Size(263, 234);
 			this.treeView_tasklist.TabIndex = 0;
 			this.treeView_tasklist.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TaskList_OnAfterSelect);
