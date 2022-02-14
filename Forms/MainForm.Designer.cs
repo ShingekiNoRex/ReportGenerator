@@ -59,13 +59,16 @@ namespace ReportGenerator
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
 			this.button_buildInfoSelection = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.button_remove = new System.Windows.Forms.Button();
+			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.button_addTask = new System.Windows.Forms.Button();
+			this.button_addBug = new System.Windows.Forms.Button();
+			this.button_saveAsTxt = new System.Windows.Forms.Button();
 			this.button_edit = new System.Windows.Forms.Button();
+			this.button_remove = new System.Windows.Forms.Button();
 			this.button_saveAs = new System.Windows.Forms.Button();
 			this.button_saveAsJson = new System.Windows.Forms.Button();
-			this.button_saveAsTxt = new System.Windows.Forms.Button();
-			this.button_addBug = new System.Windows.Forms.Button();
-			this.button_addTask = new System.Windows.Forms.Button();
+			this.panel3 = new System.Windows.Forms.Panel();
 			this.treeView_tasklist = new System.Windows.Forms.TreeView();
 			this.saveFileDialog_json = new System.Windows.Forms.SaveFileDialog();
 			this.openFileDialog_json = new System.Windows.Forms.OpenFileDialog();
@@ -76,6 +79,12 @@ namespace ReportGenerator
 			this.flowLayoutPanel3.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
 			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.Panel2.SuspendLayout();
+			this.splitContainer1.SuspendLayout();
+			this.panel2.SuspendLayout();
+			this.panel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// mainMenuStrip
@@ -86,7 +95,7 @@ namespace ReportGenerator
             this.helpToolStripMenuItem});
 			this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.mainMenuStrip.Name = "mainMenuStrip";
-			this.mainMenuStrip.Size = new System.Drawing.Size(457, 25);
+			this.mainMenuStrip.Size = new System.Drawing.Size(458, 25);
 			this.mainMenuStrip.TabIndex = 0;
 			this.mainMenuStrip.Text = "mainMenuStrip";
 			// 
@@ -257,20 +266,22 @@ namespace ReportGenerator
 			// 
 			// tableLayoutPanel1
 			// 
+			this.tableLayoutPanel1.AutoSize = true;
 			this.tableLayoutPanel1.ColumnCount = 1;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
 			this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel3, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 1);
 			this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 3);
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 28);
+			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 4;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(454, 355);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(458, 354);
 			this.tableLayoutPanel1.TabIndex = 2;
 			// 
 			// flowLayoutPanel1
@@ -280,7 +291,7 @@ namespace ReportGenerator
 			this.flowLayoutPanel1.Controls.Add(this.label_minuits);
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 73);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(448, 29);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(444, 29);
 			this.flowLayoutPanel1.TabIndex = 3;
 			// 
 			// label_installTime
@@ -297,7 +308,7 @@ namespace ReportGenerator
 			// 
 			this.textBox_installTime.Location = new System.Drawing.Point(161, 3);
 			this.textBox_installTime.Name = "textBox_installTime";
-			this.textBox_installTime.Size = new System.Drawing.Size(110, 23);
+			this.textBox_installTime.Size = new System.Drawing.Size(116, 23);
 			this.textBox_installTime.TabIndex = 2;
 			this.textBox_installTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.textBox_installTime.TextChanged += new System.EventHandler(this.OnReportChanged);
@@ -306,7 +317,7 @@ namespace ReportGenerator
 			// label_minuits
 			// 
 			this.label_minuits.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label_minuits.Location = new System.Drawing.Point(277, 0);
+			this.label_minuits.Location = new System.Drawing.Point(283, 0);
 			this.label_minuits.Name = "label_minuits";
 			this.label_minuits.Size = new System.Drawing.Size(100, 26);
 			this.label_minuits.TabIndex = 3;
@@ -322,7 +333,7 @@ namespace ReportGenerator
 			this.flowLayoutPanel3.Controls.Add(this.dateTimePicker_to);
 			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-			this.flowLayoutPanel3.Size = new System.Drawing.Size(448, 29);
+			this.flowLayoutPanel3.Size = new System.Drawing.Size(444, 29);
 			this.flowLayoutPanel3.TabIndex = 1;
 			// 
 			// flowLayoutPanel2
@@ -331,14 +342,14 @@ namespace ReportGenerator
 			this.flowLayoutPanel2.Controls.Add(this.button_buildInfoSelection);
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 38);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(448, 29);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(444, 29);
 			this.flowLayoutPanel2.TabIndex = 0;
 			// 
 			// button_buildInfoSelection
 			// 
 			this.button_buildInfoSelection.Location = new System.Drawing.Point(116, 3);
 			this.button_buildInfoSelection.Name = "button_buildInfoSelection";
-			this.button_buildInfoSelection.Size = new System.Drawing.Size(316, 23);
+			this.button_buildInfoSelection.Size = new System.Drawing.Size(321, 23);
 			this.button_buildInfoSelection.TabIndex = 2;
 			this.button_buildInfoSelection.Text = "Select a build...";
 			this.button_buildInfoSelection.UseVisualStyleBackColor = true;
@@ -346,34 +357,87 @@ namespace ReportGenerator
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.button_remove);
-			this.panel1.Controls.Add(this.button_edit);
-			this.panel1.Controls.Add(this.button_saveAs);
-			this.panel1.Controls.Add(this.button_saveAsJson);
-			this.panel1.Controls.Add(this.button_saveAsTxt);
-			this.panel1.Controls.Add(this.button_addBug);
-			this.panel1.Controls.Add(this.button_addTask);
-			this.panel1.Controls.Add(this.treeView_tasklist);
+			this.panel1.Controls.Add(this.splitContainer1);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 108);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(448, 244);
+			this.panel1.Size = new System.Drawing.Size(452, 243);
 			this.panel1.TabIndex = 2;
 			// 
-			// button_remove
+			// splitContainer1
 			// 
-			this.button_remove.Enabled = false;
-			this.button_remove.Location = new System.Drawing.Point(288, 112);
-			this.button_remove.Name = "button_remove";
-			this.button_remove.Size = new System.Drawing.Size(144, 28);
-			this.button_remove.TabIndex = 7;
-			this.button_remove.Text = "Remove";
-			this.button_remove.UseVisualStyleBackColor = true;
-			this.button_remove.Click += new System.EventHandler(this.OnRemove);
+			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.splitContainer1.IsSplitterFixed = true;
+			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer1.Name = "splitContainer1";
+			// 
+			// splitContainer1.Panel1
+			// 
+			this.splitContainer1.Panel1.Controls.Add(this.panel2);
+			this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.splitContainer1.Panel1MinSize = 150;
+			// 
+			// splitContainer1.Panel2
+			// 
+			this.splitContainer1.Panel2.Controls.Add(this.panel3);
+			this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.splitContainer1.Panel2MinSize = 30;
+			this.splitContainer1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.splitContainer1.Size = new System.Drawing.Size(452, 243);
+			this.splitContainer1.SplitterDistance = 170;
+			this.splitContainer1.SplitterWidth = 5;
+			this.splitContainer1.TabIndex = 9;
+			// 
+			// panel2
+			// 
+			this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.panel2.Controls.Add(this.button_addTask);
+			this.panel2.Controls.Add(this.button_addBug);
+			this.panel2.Controls.Add(this.button_saveAsTxt);
+			this.panel2.Controls.Add(this.button_edit);
+			this.panel2.Controls.Add(this.button_remove);
+			this.panel2.Controls.Add(this.button_saveAs);
+			this.panel2.Controls.Add(this.button_saveAsJson);
+			this.panel2.Location = new System.Drawing.Point(11, 4);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(147, 239);
+			this.panel2.TabIndex = 8;
+			// 
+			// button_addTask
+			// 
+			this.button_addTask.Location = new System.Drawing.Point(0, 0);
+			this.button_addTask.Name = "button_addTask";
+			this.button_addTask.Size = new System.Drawing.Size(144, 28);
+			this.button_addTask.TabIndex = 1;
+			this.button_addTask.Text = "Add Task";
+			this.button_addTask.UseVisualStyleBackColor = true;
+			this.button_addTask.Click += new System.EventHandler(this.AddTask_OnClick);
+			// 
+			// button_addBug
+			// 
+			this.button_addBug.Location = new System.Drawing.Point(0, 34);
+			this.button_addBug.Name = "button_addBug";
+			this.button_addBug.Size = new System.Drawing.Size(144, 28);
+			this.button_addBug.TabIndex = 2;
+			this.button_addBug.Text = "Add Bug";
+			this.button_addBug.UseVisualStyleBackColor = true;
+			this.button_addBug.Click += new System.EventHandler(this.AddBug_OnClick);
+			// 
+			// button_saveAsTxt
+			// 
+			this.button_saveAsTxt.Location = new System.Drawing.Point(0, 204);
+			this.button_saveAsTxt.Name = "button_saveAsTxt";
+			this.button_saveAsTxt.Size = new System.Drawing.Size(144, 28);
+			this.button_saveAsTxt.TabIndex = 3;
+			this.button_saveAsTxt.Text = "Generate Txt Report";
+			this.button_saveAsTxt.UseVisualStyleBackColor = true;
+			this.button_saveAsTxt.Click += new System.EventHandler(this.GenerateTxtFile_OnClick);
 			// 
 			// button_edit
 			// 
 			this.button_edit.Enabled = false;
-			this.button_edit.Location = new System.Drawing.Point(288, 78);
+			this.button_edit.Location = new System.Drawing.Point(0, 68);
 			this.button_edit.Name = "button_edit";
 			this.button_edit.Size = new System.Drawing.Size(144, 28);
 			this.button_edit.TabIndex = 6;
@@ -381,9 +445,20 @@ namespace ReportGenerator
 			this.button_edit.UseVisualStyleBackColor = true;
 			this.button_edit.Click += new System.EventHandler(this.OnEdit);
 			// 
+			// button_remove
+			// 
+			this.button_remove.Enabled = false;
+			this.button_remove.Location = new System.Drawing.Point(0, 102);
+			this.button_remove.Name = "button_remove";
+			this.button_remove.Size = new System.Drawing.Size(144, 28);
+			this.button_remove.TabIndex = 7;
+			this.button_remove.Text = "Remove";
+			this.button_remove.UseVisualStyleBackColor = true;
+			this.button_remove.Click += new System.EventHandler(this.OnRemove);
+			// 
 			// button_saveAs
 			// 
-			this.button_saveAs.Location = new System.Drawing.Point(288, 182);
+			this.button_saveAs.Location = new System.Drawing.Point(0, 170);
 			this.button_saveAs.Name = "button_saveAs";
 			this.button_saveAs.Size = new System.Drawing.Size(144, 28);
 			this.button_saveAs.TabIndex = 5;
@@ -393,7 +468,7 @@ namespace ReportGenerator
 			// 
 			// button_saveAsJson
 			// 
-			this.button_saveAsJson.Location = new System.Drawing.Point(288, 148);
+			this.button_saveAsJson.Location = new System.Drawing.Point(0, 136);
 			this.button_saveAsJson.Name = "button_saveAsJson";
 			this.button_saveAsJson.Size = new System.Drawing.Size(144, 28);
 			this.button_saveAsJson.TabIndex = 4;
@@ -401,42 +476,24 @@ namespace ReportGenerator
 			this.button_saveAsJson.UseVisualStyleBackColor = true;
 			this.button_saveAsJson.Click += new System.EventHandler(this.Save_OnClick);
 			// 
-			// button_saveAsTxt
+			// panel3
 			// 
-			this.button_saveAsTxt.Location = new System.Drawing.Point(288, 216);
-			this.button_saveAsTxt.Name = "button_saveAsTxt";
-			this.button_saveAsTxt.Size = new System.Drawing.Size(144, 28);
-			this.button_saveAsTxt.TabIndex = 3;
-			this.button_saveAsTxt.Text = "Generate Txt Report";
-			this.button_saveAsTxt.UseVisualStyleBackColor = true;
-			this.button_saveAsTxt.Click += new System.EventHandler(this.GenerateTxtFile_OnClick);
-			// 
-			// button_addBug
-			// 
-			this.button_addBug.Location = new System.Drawing.Point(288, 44);
-			this.button_addBug.Name = "button_addBug";
-			this.button_addBug.Size = new System.Drawing.Size(144, 28);
-			this.button_addBug.TabIndex = 2;
-			this.button_addBug.Text = "Add Bug";
-			this.button_addBug.UseVisualStyleBackColor = true;
-			this.button_addBug.Click += new System.EventHandler(this.AddBug_OnClick);
-			// 
-			// button_addTask
-			// 
-			this.button_addTask.Location = new System.Drawing.Point(288, 10);
-			this.button_addTask.Name = "button_addTask";
-			this.button_addTask.Size = new System.Drawing.Size(144, 28);
-			this.button_addTask.TabIndex = 1;
-			this.button_addTask.Text = "Add Task";
-			this.button_addTask.UseVisualStyleBackColor = true;
-			this.button_addTask.Click += new System.EventHandler(this.AddTask_OnClick);
+			this.panel3.Controls.Add(this.treeView_tasklist);
+			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel3.Location = new System.Drawing.Point(0, 0);
+			this.panel3.Name = "panel3";
+			this.panel3.Padding = new System.Windows.Forms.Padding(8, 0, 0, 8);
+			this.panel3.Size = new System.Drawing.Size(277, 243);
+			this.panel3.TabIndex = 1;
 			// 
 			// treeView_tasklist
 			// 
-			this.treeView_tasklist.Location = new System.Drawing.Point(8, 10);
+			this.treeView_tasklist.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.treeView_tasklist.Location = new System.Drawing.Point(8, 0);
+			this.treeView_tasklist.MinimumSize = new System.Drawing.Size(268, 235);
 			this.treeView_tasklist.Name = "treeView_tasklist";
 			this.treeView_tasklist.ShowNodeToolTips = true;
-			this.treeView_tasklist.Size = new System.Drawing.Size(263, 234);
+			this.treeView_tasklist.Size = new System.Drawing.Size(269, 235);
 			this.treeView_tasklist.TabIndex = 0;
 			this.treeView_tasklist.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TaskList_OnAfterSelect);
 			this.treeView_tasklist.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TaskList_OnNodeMouseClick);
@@ -461,12 +518,11 @@ namespace ReportGenerator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(457, 394);
+			this.ClientSize = new System.Drawing.Size(458, 379);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Controls.Add(this.mainMenuStrip);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MainMenuStrip = this.mainMenuStrip;
-			this.MaximizeBox = false;
+			this.MinimumSize = new System.Drawing.Size(474, 418);
 			this.Name = "MainForm";
 			this.Text = "Untitled - Report Generator";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
@@ -478,6 +534,12 @@ namespace ReportGenerator
 			this.flowLayoutPanel3.ResumeLayout(false);
 			this.flowLayoutPanel2.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
+			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+			this.splitContainer1.ResumeLayout(false);
+			this.panel2.ResumeLayout(false);
+			this.panel3.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -511,20 +573,23 @@ namespace ReportGenerator
 		private System.Windows.Forms.Label label_installTime;
 		private System.Windows.Forms.TextBox textBox_installTime;
 		private System.Windows.Forms.Label label_minuits;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TreeView treeView_tasklist;
-		private System.Windows.Forms.Button button_saveAs;
-		private System.Windows.Forms.Button button_saveAsJson;
-		private System.Windows.Forms.Button button_saveAsTxt;
-		private System.Windows.Forms.Button button_addBug;
-		private System.Windows.Forms.Button button_addTask;
-		private System.Windows.Forms.Button button_edit;
-		private System.Windows.Forms.Button button_remove;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog_json;
 		private System.Windows.Forms.OpenFileDialog openFileDialog_json;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog_txt;
 		private System.Windows.Forms.ToolStripMenuItem hyperlinkRetrieverToolStripMenuItem;
 		private System.Windows.Forms.Button button_buildInfoSelection;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.TreeView treeView_tasklist;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.Button button_addTask;
+		private System.Windows.Forms.Button button_addBug;
+		private System.Windows.Forms.Button button_saveAsTxt;
+		private System.Windows.Forms.Button button_edit;
+		private System.Windows.Forms.Button button_remove;
+		private System.Windows.Forms.Button button_saveAs;
+		private System.Windows.Forms.Button button_saveAsJson;
+		private System.Windows.Forms.SplitContainer splitContainer1;
+		private System.Windows.Forms.Panel panel3;
 	}
 }
 
