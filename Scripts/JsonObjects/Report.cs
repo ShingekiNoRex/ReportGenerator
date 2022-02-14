@@ -25,7 +25,7 @@ namespace ReportGenerator
 				return;
 
 			date = CombineDate(date.Split(" - "), other.date.Split(" - "));
-			buildInfo = new List<BuildInfo>(this.buildInfo.Concat(other.buildInfo));
+			buildInfo = new List<BuildInfo>(this.buildInfo.Union(other.buildInfo));
 			installTime += other.installTime;
 			foreach (TestingItem otherItem in other.testings)
 			{
