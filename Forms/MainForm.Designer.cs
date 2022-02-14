@@ -521,6 +521,7 @@ namespace ReportGenerator
 			this.ClientSize = new System.Drawing.Size(458, 379);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Controls.Add(this.mainMenuStrip);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.mainMenuStrip;
 			this.MinimumSize = new System.Drawing.Size(474, 418);
 			this.Name = "MainForm";
