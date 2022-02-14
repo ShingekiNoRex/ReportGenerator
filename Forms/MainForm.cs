@@ -35,16 +35,6 @@ namespace ReportGenerator
 		#region Initialization
 		private void InitializeComponent_Post()
 		{
-			if (string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
-			{
-				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d");
-				saveFileDialog_txt.FileName = DateTime.Today.ToString("yyyy.M.d");
-			}
-			else
-			{
-				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d") + " - " + ConfigSettings.Settings["Name"];
-				saveFileDialog_txt.FileName = DateTime.Today.ToString("yyyy.M.d") + " - " + ConfigSettings.Settings["Name"];
-			}
 			dateTimePicker_to.Value = DateTime.Today;
 			dateTimePicker_from.Value = DateTime.Today;
 			this.Text = "Untitled - Report Generator " + Version;
@@ -52,8 +42,18 @@ namespace ReportGenerator
 
 		private bool ValidateConfigSettings()
 		{
-			if (!ConfigSettings.Settings.ContainsKey("Name") || string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
+			if (ConfigSettings.Settings.ContainsKey("Name") && !string.IsNullOrWhiteSpace(ConfigSettings.Settings["Name"]))
+			{
+				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d") + " - " + ConfigSettings.Settings["Name"];
+				saveFileDialog_txt.FileName = DateTime.Today.ToString("yyyy.M.d") + " - " + ConfigSettings.Settings["Name"];
+			}
+			else
+			{
+				saveFileDialog_json.FileName = DateTime.Today.ToString("yyyy.M.d");
+				saveFileDialog_txt.FileName = DateTime.Today.ToString("yyyy.M.d");
 				return false;
+			}
+			
 
 			if (!ConfigSettings.Settings.TryGetValue("BuildInfoPath", out string path) || !BuildInfoProcessor(path))
 				return false;
