@@ -245,7 +245,7 @@ namespace ReportGenerator
 							int.TryParse(form_editTask.textBox_time.Text, out int time);
 							taskItem.time = time;
 
-							treeView_tasklist.SelectedNode.Text = string.Format("{0} ({1}) {2}m {3}", taskItem.content, taskItem.result, taskItem.time, taskItem.comment);
+							treeView_tasklist.SelectedNode.Text = string.Format("{0} ({1}) {2}m {3} {4}", taskItem.content, taskItem.result, taskItem.time, taskItem.defects, taskItem.comment);
 
 							for (int i = 1; i < form_editTask.textBox_content.Lines.Length; i ++)
 								AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Lines[i], time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text, taskItem.reporter);
