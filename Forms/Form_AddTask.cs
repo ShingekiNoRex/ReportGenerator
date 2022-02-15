@@ -24,6 +24,7 @@ namespace ReportGenerator
 			comboBox_result.SelectedIndex = (int)taskItem.result;
 			textBox_content.Text = taskItem.content;
 			textBox_time.Text = taskItem.time.ToString();
+			textBox_defects.Text = taskItem.defects;
 			textBox_comment.Text = taskItem.comment;
 		}
 
