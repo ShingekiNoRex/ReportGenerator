@@ -577,6 +577,22 @@ namespace ReportGenerator
 			ReportChangedIndicate();
 		}
 
+		public void AddBuildInfo(BuildInfo buildInfo)
+		{
+			if (BuildInfoCollection == null)
+			{
+				BuildInfoCollection = new BuildInfo[1];
+				BuildInfoCollection[0] = buildInfo;
+			}
+			else
+			{
+				BuildInfo[] newCollection = new BuildInfo[BuildInfoCollection.Length + 1];
+				BuildInfoCollection.CopyTo(newCollection, 0);
+				newCollection[BuildInfoCollection.Length] = buildInfo;
+				BuildInfoCollection = newCollection;
+			}
+		}
+
 		public void ValidateConfig()
 		{
 			if (!ValidateConfigSettings())

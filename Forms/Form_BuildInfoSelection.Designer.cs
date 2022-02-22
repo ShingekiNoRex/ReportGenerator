@@ -32,11 +32,12 @@ namespace ReportGenerator
 			this.button_ok = new System.Windows.Forms.Button();
 			this.button_cancel = new System.Windows.Forms.Button();
 			this.checkedListBox_buildInfo = new System.Windows.Forms.CheckedListBox();
+			this.button_add = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// button_ok
 			// 
-			this.button_ok.Location = new System.Drawing.Point(31, 252);
+			this.button_ok.Location = new System.Drawing.Point(30, 253);
 			this.button_ok.Name = "button_ok";
 			this.button_ok.Size = new System.Drawing.Size(96, 32);
 			this.button_ok.TabIndex = 1;
@@ -46,7 +47,7 @@ namespace ReportGenerator
 			// 
 			// button_cancel
 			// 
-			this.button_cancel.Location = new System.Drawing.Point(168, 252);
+			this.button_cancel.Location = new System.Drawing.Point(169, 253);
 			this.button_cancel.Name = "button_cancel";
 			this.button_cancel.Size = new System.Drawing.Size(96, 32);
 			this.button_cancel.TabIndex = 2;
@@ -58,16 +59,27 @@ namespace ReportGenerator
 			// 
 			this.checkedListBox_buildInfo.CheckOnClick = true;
 			this.checkedListBox_buildInfo.FormattingEnabled = true;
-			this.checkedListBox_buildInfo.Location = new System.Drawing.Point(12, 12);
+			this.checkedListBox_buildInfo.Location = new System.Drawing.Point(12, 49);
 			this.checkedListBox_buildInfo.Name = "checkedListBox_buildInfo";
-			this.checkedListBox_buildInfo.Size = new System.Drawing.Size(273, 220);
+			this.checkedListBox_buildInfo.Size = new System.Drawing.Size(273, 184);
 			this.checkedListBox_buildInfo.TabIndex = 3;
+			// 
+			// button_add
+			// 
+			this.button_add.Location = new System.Drawing.Point(12, 12);
+			this.button_add.Name = "button_add";
+			this.button_add.Size = new System.Drawing.Size(273, 31);
+			this.button_add.TabIndex = 4;
+			this.button_add.Text = "Add a new build";
+			this.button_add.UseVisualStyleBackColor = true;
+			this.button_add.Click += new System.EventHandler(this.OnAddBuild);
 			// 
 			// Form_BuildInfoSelection
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(296, 299);
+			this.ClientSize = new System.Drawing.Size(296, 305);
+			this.Controls.Add(this.button_add);
 			this.Controls.Add(this.checkedListBox_buildInfo);
 			this.Controls.Add(this.button_cancel);
 			this.Controls.Add(this.button_ok);
@@ -84,5 +96,6 @@ namespace ReportGenerator
 		public System.Windows.Forms.CheckedListBox checkedListBox_buildInfo;
 		private System.Windows.Forms.Button button_ok;
 		private System.Windows.Forms.Button button_cancel;
+		private System.Windows.Forms.Button button_add;
 	}
 }
