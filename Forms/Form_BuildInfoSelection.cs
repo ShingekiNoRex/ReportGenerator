@@ -6,7 +6,7 @@ namespace ReportGenerator
 {
 	public partial class Form_BuildInfoSelection : Form
 	{
-		public Form_BuildInfoSelection(List<BuildInfo> selectedBuilds)
+		public Form_BuildInfoSelection(List<BuildInfo> selectedBuilds, Platform selectedPlatform)
 		{
 			InitializeComponent();
 			if (FormReference.MainForm.BuildInfoCollection != null)
@@ -15,6 +15,10 @@ namespace ReportGenerator
 				{
 					checkedListBox_buildInfo.Items.Add(buildInfo, selectedBuilds.Contains(buildInfo));
 				}
+
+				checkBox_pc.Checked = (selectedPlatform & Platform.PC) > 0;
+				checkBox_android.Checked = (selectedPlatform & Platform.Android) > 0;
+				checkBox_ios.Checked = (selectedPlatform & Platform.iOS) > 0;
 			}
 		}
 
