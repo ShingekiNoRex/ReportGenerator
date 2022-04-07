@@ -9,14 +9,6 @@ using System.Text.RegularExpressions;
 
 namespace ReportGenerator
 {
-	[Flags]
-	public enum Platform
-	{
-		PC = 1 << 0,
-		Android = 1 << 1,
-		iOS = 1 << 2,
-	}
-
 	public partial class MainForm : Form
 	{
 		public const string Version = "1.8";
@@ -28,7 +20,6 @@ namespace ReportGenerator
 		private string _currentPath;
 		private List<TestingItem> _testingItems = new List<TestingItem>();
 		private List<BuildInfo> _selectedBuildInfo = new List<BuildInfo>();
-		private Platform _selectedPlatform = Platform.PC;
 
 		private readonly Color[] _resultColor = { Color.Green, Color.Red, Color.Gold, Color.Orange };
 
@@ -180,16 +171,15 @@ namespace ReportGenerator
 
 		private void BuildInfoSelection_OnClick(object sender, EventArgs e)
 		{
-			Form_BuildInfoSelection form_buildSelection = new Form_BuildInfoSelection(_selectedBuildInfo, _selectedPlatform);
+			Form_BuildInfoSelection form_buildSelection = new Form_BuildInfoSelection(_selectedBuildInfo);
 			if (form_buildSelection.ShowDialog() == DialogResult.OK)
 			{
 				_selectedBuildInfo.Clear();
-				foreach (int selection in form_buildSelection.checkedListBox_buildInfo.CheckedIndices)
-				{
-					_selectedBuildInfo.Add(BuildInfoCollection[selection]);
-				}
 
-				_selectedPlatform = (form_buildSelection.checkBox_pc.Checked ? Platform.PC : 0) | (form_buildSelection.checkBox_android.Checked ? Platform.Android : 0) | (form_buildSelection.checkBox_ios.Checked ? Platform.iOS : 0);
+				foreach (BuildInfo build in form_buildSelection.checkedListBox_buildInfo.CheckedItems)
+				{
+					_selectedBuildInfo.Add(build);
+				}
 
 				button_buildInfoSelection.Text = _selectedBuildInfo.Count > 0 ? (_selectedBuildInfo.Count > 1 ? "Multiple builds selected" : _selectedBuildInfo[0].ToString()) : "Select a build...";
 				ReportChangedIndicate();

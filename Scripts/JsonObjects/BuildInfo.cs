@@ -1,18 +1,30 @@
-﻿namespace ReportGenerator
+﻿using System;
+
+namespace ReportGenerator
 {
+	[Flags]
+	public enum Platform
+	{
+		PC = 1 << 0,
+		Android = 1 << 1,
+		iOS = 1 << 2,
+	}
+
 	public class BuildInfo
 	{
 		public string branch;
 		public string build;
 		public string cl;
 		public string environment;
+		public Platform platform;
 
-		public BuildInfo(string branch, string build, string cl, string environment)
+		public BuildInfo(string branch, string build, string cl, string environment, Platform platform = Platform.PC)
 		{
 			this.branch = branch;
 			this.build = build;
 			this.cl = cl;
 			this.environment = environment;
+			this.platform = platform;
 		}
 
 		public bool Equals(string branch, string build, string cl, string environment)
