@@ -470,7 +470,7 @@ namespace ReportGenerator
 
 						sw.WriteLine(string.Format(" - {0} Total ({1}m)", totalTaskUnderOneTitle, totalTimeUnderOneTitle));
 						totalStandardCount += totalTaskUnderOneTitle;
-						totalTimeUnderOneTitle += totalTimeUnderOneTitle;
+						totalStandardTime += totalTimeUnderOneTitle;
 					}
 					else
 						for (int i = 0; i < 4; i++)
