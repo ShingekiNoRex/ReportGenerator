@@ -56,7 +56,7 @@ namespace ReportGenerator
 
 		public override string ToString()
 		{
-			return branch + "." + build + " CL " + cl + " " + environment;
+			return string.Format("{0}.{1} CL {2} ({3})", branch, build, cl, environment);
 		}
 	}
 }

@@ -249,16 +249,22 @@ namespace ReportGenerator
 							treeView_tasklist.SelectedNode.Text = string.Format("{0} ({1}) {2}m {3} {4}", taskItem.content, taskItem.result, taskItem.time, taskItem.defects, taskItem.comment);
 							treeView_tasklist.SelectedNode.ForeColor = _resultColor[(int)taskItem.result];
 
+							if (!(form_editTask.comboBox_title.SelectedItem is Category selectedTitle))
+								selectedTitle = new Category(form_editTask.comboBox_title.Text);
+
 							for (int i = 1; i < form_editTask.textBox_content.Lines.Length; i ++)
-								AddTask(form_editTask.comboBox_title.Text, form_editTask.textBox_content.Lines[i], time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text, taskItem.reporter);
+								AddTask(selectedTitle, form_editTask.textBox_content.Lines[i], time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text, taskItem.reporter);
 						}
 						else
 						{
 							Remove(treeView_tasklist.SelectedNode);
 
+							if (!(form_editTask.comboBox_title.SelectedItem is Category selectedTitle))
+								selectedTitle = new Category(form_editTask.comboBox_title.Text);
+
 							int.TryParse(form_editTask.textBox_time.Text, out int time);
 							foreach (string line in form_editTask.textBox_content.Lines)
-								AddTask(form_editTask.comboBox_title.Text, line, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text, taskItem.reporter);
+								AddTask(selectedTitle, line, time, (TaskResult)form_editTask.comboBox_result.SelectedIndex, form_editTask.textBox_defects.Text, form_editTask.textBox_comment.Text, taskItem.reporter);
 						}
 
 						form_editTask.Close();
@@ -276,15 +282,21 @@ namespace ReportGenerator
 
 							treeView_tasklist.SelectedNode.Text = bugItem.type.ToString() + " - " + bugItem.link;
 
+							if (!(form_editBug.comboBox_title.SelectedItem is Category selectedTitle))
+								selectedTitle = new Category(form_editBug.comboBox_title.Text);
+
 							for (int i = 1; i < form_editBug.textBox_link.Lines.Length; i++)
-								AddBug(form_editBug.comboBox_title.Text, (BugType)form_editBug.comboBox_bugType.SelectedIndex, form_editBug.textBox_link.Lines[i], bugItem.reporter);
+								AddBug(selectedTitle, (BugType)form_editBug.comboBox_bugType.SelectedIndex, form_editBug.textBox_link.Lines[i], bugItem.reporter);
 						}
 						else
 						{
 							Remove(treeView_tasklist.SelectedNode);
 
+							if (!(form_editBug.comboBox_title.SelectedItem is Category selectedTitle))
+								selectedTitle = new Category(form_editBug.comboBox_title.Text);
+
 							foreach (string line in form_editBug.textBox_link.Lines)
-								AddBug(form_editBug.comboBox_title.Text, (BugType)form_editBug.comboBox_bugType.SelectedIndex, line, bugItem.reporter);
+								AddBug(selectedTitle, (BugType)form_editBug.comboBox_bugType.SelectedIndex, line, bugItem.reporter);
 						}
 
 						form_editBug.Close();
@@ -400,49 +412,69 @@ namespace ReportGenerator
 
 			if (saveFileDialog_txt.ShowDialog() == DialogResult.OK)
 			{
-				int totalTasks = 0, totalTime = 0;
+				int[] totalStandardTasksWithResult = new int[4], totalStandardTimeWithResult = new int[4];
+				int totalStandardCount = 0, totalStandardTime = 0;
+				int totalNonStandardTime = 0;
 				int[] bugAmount = CalculateBugAmount();
 				Regex reg = new Regex(@ConfigSettings.GlobalSettings["DefectsRegex"]);
-
-				foreach (BuildInfo buildInfo in _selectedBuildInfo)
-				{
-					string.Format("{0}.{1} CL {2} ({3})", buildInfo.branch, buildInfo.build, buildInfo.cl, buildInfo.environment);
-				}
 
 				StreamWriter sw = new StreamWriter(saveFileDialog_txt.FileName, false);
 				sw.WriteLine(dateTimePicker_from.Text.Equals(dateTimePicker_to.Text) ? dateTimePicker_from.Text : dateTimePicker_from.Text + " - " + dateTimePicker_to.Text);
 				sw.WriteLine("Tests executed in: ");
 				foreach (BuildInfo buildInfo in _selectedBuildInfo)
 				{
-					sw.WriteLine(string.Format("{0}.{1} CL {2} ({3})", buildInfo.branch, buildInfo.build, buildInfo.cl, buildInfo.environment));
+					sw.WriteLine(string.Format("{0} - {1}:", buildInfo.ToString(), buildInfo.platform));
 				}
 				sw.WriteLine();
 
 				foreach (var testingItem in _testingItems)
 				{
-					int thisTotalTime = testingItem.GetTotalTime();
-					totalTasks += testingItem.tasks.Count;
-					totalTime += thisTotalTime;
+					sw.WriteLine(testingItem.category.title);
 
-					if (thisTotalTime > 0)
-						sw.WriteLine(string.Format("{0}: {1} ({2}m)", testingItem.category.title, testingItem.tasks.Count > 0 ? testingItem.tasks.Count.ToString() : string.Empty, thisTotalTime));
-					else
-						sw.WriteLine(string.Format("{0}: {1}", testingItem.category.title, testingItem.tasks.Count > 0 ? testingItem.tasks.Count.ToString() : string.Empty));
-
+					int[] taskCount = new int[4], taskTime = new int[4];
 					foreach (var task in testingItem.tasks)
 					{
-						if (!string.IsNullOrWhiteSpace(task.defects))
+						taskCount[(int)task.result]++;
+						taskTime[(int)task.result] += task.time;
+
+						if (task.result != TaskResult.Pass || testingItem.category.isExploratory)
 						{
-							string defects = "";
-							foreach (Match match in reg.Matches(task.defects))
+							if (!string.IsNullOrWhiteSpace(task.defects))
 							{
-								defects = string.Format("{0} [{1}|{2}{1}]", defects, match.Value, ConfigSettings.GlobalSettings["DefectsLink"]);
+								string defects = "";
+								foreach (Match match in reg.Matches(task.defects))
+								{
+									defects = string.Format("{0} [{1}|{2}{1}]", defects, match.Value, ConfigSettings.GlobalSettings["DefectsLink"]);
+								}
+								sw.WriteLine(string.Format("{0} ({1}) {2}m {3} {4}", task.content, task.result, task.time, defects, task.comment));
 							}
-							sw.WriteLine(string.Format("{0} ({1}) {2}m {3} {4}", task.content, task.result, task.time, defects, task.comment));
+							else
+								sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
 						}
-						else
-							sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
 					}
+
+					if (!testingItem.category.isExploratory)
+					{
+						int totalTaskUnderOneTitle = 0, totalTimeUnderOneTitle = 0;
+						sw.WriteLine("Summary:");
+						for (int i = 0; i < 4; i++)
+						{
+							totalTaskUnderOneTitle += taskCount[i];
+							totalTimeUnderOneTitle += taskTime[i];
+							totalStandardTasksWithResult[i] += taskCount[i];
+							totalStandardTimeWithResult[i] += taskTime[i];
+
+							if (taskCount[i] > 0)
+								sw.WriteLine(string.Format(" - {0} {1} ({2}m)", taskCount[i], (TaskResult)i, taskTime[i]));
+						}
+
+						sw.WriteLine(string.Format("- {0} Total ({1}m)", totalTaskUnderOneTitle, totalTimeUnderOneTitle));
+						totalStandardCount += totalTaskUnderOneTitle;
+						totalTimeUnderOneTitle += totalTimeUnderOneTitle;
+					}
+					else
+						for (int i = 0; i < 4; i++)
+							totalNonStandardTime += taskTime[i];
 
 					if (testingItem.bugs.Count > 0)
 					{
@@ -454,8 +486,16 @@ namespace ReportGenerator
 					sw.WriteLine();
 				}
 
-				sw.WriteLine("Build installation time: " + textBox_installTime.Text + "m");
-				sw.WriteLine(string.Format("Number of tests executed: {0} ({1}m)", totalTasks, totalTime));
+				sw.WriteLine("Time spent on build downloading and installation: " + textBox_installTime.Text + "m");
+				sw.WriteLine("Time spent on non-standard tests: " + totalNonStandardTime + "m");
+
+				sw.WriteLine(string.Format("Number of standard tests executed: {0} (1)", totalStandardCount, totalStandardTime));
+				for (int i = 0; i < 4; i++)
+				{
+					if (totalStandardTasksWithResult[i] > 0)
+						sw.WriteLine(string.Format(" - {0} {1} ({2}m)", totalStandardTasksWithResult[i], (TaskResult)i, totalStandardTimeWithResult[i]));
+				}
+
 				sw.WriteLine(string.Format("Number of bugs found {0}, reopened {1}, closed {2}", bugAmount[0], bugAmount[1], bugAmount[2]));
 				sw.Close();
 			}
@@ -490,12 +530,8 @@ namespace ReportGenerator
 		#endregion
 
 		#region Public Methods
-		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Pass, string defects = "", string comment = "", string reporter = "")
-		{
-			AddTask(category.title, content, time, result, defects, comment, reporter);
-		}
 
-		public void AddTask(string title, string content, int time, TaskResult result = TaskResult.Pass, string defects = "", string comment = "", string reporter = "")
+		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Pass, string defects = "", string comment = "", string reporter = "")
 		{
 			if (string.IsNullOrWhiteSpace(content))
 				return;
@@ -507,25 +543,25 @@ namespace ReportGenerator
 				ForeColor = _resultColor[(int)result],
 			};
 
-			if (treeView_tasklist.Nodes.ContainsKey(title))
+			if (treeView_tasklist.Nodes.ContainsKey(category.title))
 			{
-				TestingItem testingItem = _testingItems.Find(item => item.Equals(title));
+				TestingItem testingItem = _testingItems.Find(item => item.Equals(category.title));
 				if (testingItem.tasks.Contains(taskItem))
 					node.Text = "*DUPLICATE* " + node.Text;
 
 				testingItem.tasks.Add(taskItem);
 
-				if (treeView_tasklist.Nodes[title].Nodes.ContainsKey("Tasks"))
-					treeView_tasklist.Nodes[title].Nodes["Tasks"].Nodes.Add(node);
+				if (treeView_tasklist.Nodes[category.title].Nodes.ContainsKey("Tasks"))
+					treeView_tasklist.Nodes[category.title].Nodes["Tasks"].Nodes.Add(node);
 				else
-					treeView_tasklist.Nodes[title].Nodes.Add("Tasks", "Tasks").Nodes.Add(node);
+					treeView_tasklist.Nodes[category.title].Nodes.Add("Tasks", "Tasks").Nodes.Add(node);
 			}
 			else
 			{
-				TestingItem testingItem = new TestingItem(title);
+				TestingItem testingItem = new TestingItem(category);
 				testingItem.tasks.Add(taskItem);
 				_testingItems.Add(testingItem);
-				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Tasks", "Tasks").Nodes.Add(node);
+				treeView_tasklist.Nodes.Add(category.title, category.title).Nodes.Add("Tasks", "Tasks").Nodes.Add(node);
 			}
 			node.ToolTipText = "Reported by " + taskItem.reporter;
 			node.Parent.Expand();
@@ -536,11 +572,6 @@ namespace ReportGenerator
 
 		public void AddBug(Category category, BugType bugType, string link, string reporter = "")
 		{
-			AddBug(category.title, bugType, link, reporter);
-		}
-
-		public void AddBug(string title, BugType bugType, string link, string reporter = "")
-		{
 			if (string.IsNullOrWhiteSpace(link))
 				return;
 
@@ -550,26 +581,26 @@ namespace ReportGenerator
 				Tag = bugItem
 			};
 
-			if (treeView_tasklist.Nodes.ContainsKey(title))
+			if (treeView_tasklist.Nodes.ContainsKey(category.title))
 			{
-				TestingItem testingItem = _testingItems.Find(item => item.Equals(title));
+				TestingItem testingItem = _testingItems.Find(item => item.Equals(category.title));
 				if (testingItem.bugs.Contains(bugItem))
 					node.Text = "*DUPLICATE* " + node.Text;
 
 				testingItem.bugs.Add(bugItem);
 
-				if (treeView_tasklist.Nodes[title].Nodes.ContainsKey("Bugs"))
-					treeView_tasklist.Nodes[title].Nodes["Bugs"].Nodes.Add(node);
+				if (treeView_tasklist.Nodes[category.title].Nodes.ContainsKey("Bugs"))
+					treeView_tasklist.Nodes[category.title].Nodes["Bugs"].Nodes.Add(node);
 				else
-					treeView_tasklist.Nodes[title].Nodes.Add("Bugs", "Bugs").Nodes.Add(node);
+					treeView_tasklist.Nodes[category.title].Nodes.Add("Bugs", "Bugs").Nodes.Add(node);
 			}
 			else
 			{
-				TestingItem testingItem = new TestingItem(title);
+				TestingItem testingItem = new TestingItem(category);
 				testingItem.bugs.Add(bugItem);
 				_testingItems.Add(testingItem);
 
-				treeView_tasklist.Nodes.Add(title, title).Nodes.Add("Bugs", "Bugs").Nodes.Add(node);
+				treeView_tasklist.Nodes.Add(category.title, category.title).Nodes.Add("Bugs", "Bugs").Nodes.Add(node);
 			}
 			node.ToolTipText = "Reported by " + bugItem.reporter;
 			node.Parent.Expand();

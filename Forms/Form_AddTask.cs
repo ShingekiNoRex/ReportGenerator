@@ -35,7 +35,7 @@ namespace ReportGenerator
 			{
 				foreach (Category category in FormReference.MainForm.CategoriesCollection)
 				{
-					comboBox_title.Items.Add(category.title);
+					comboBox_title.Items.Add(category);
 				}
 			}
 			comboBox_result.SelectedIndex = 0;
@@ -89,9 +89,12 @@ namespace ReportGenerator
 					}
 					else
 					{
+						if (!(comboBox_title.SelectedItem is Category selectedTitle))
+							selectedTitle = new Category(comboBox_title.Text);
+
 						int.TryParse(textBox_time.Text, out int time);
 						foreach (string line in textBox_content.Lines)
-							FormReference.MainForm.AddTask(comboBox_title.Text, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_defects.Text, textBox_comment.Text);
+							FormReference.MainForm.AddTask(selectedTitle, line, time, (TaskResult)comboBox_result.SelectedIndex, textBox_defects.Text, textBox_comment.Text);
 					}
 				}
 			}

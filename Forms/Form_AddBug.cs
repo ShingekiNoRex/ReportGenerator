@@ -66,8 +66,11 @@ namespace ReportGenerator
 					this.DialogResult = DialogResult.OK;
 				else
 				{
+					if (!(comboBox_title.SelectedItem is Category selectedTitle))
+						selectedTitle = new Category(comboBox_title.Text);
+
 					foreach (string line in textBox_link.Lines)
-						FormReference.MainForm.AddBug(comboBox_title.Text, (BugType)comboBox_bugType.SelectedIndex, line);
+						FormReference.MainForm.AddBug(selectedTitle, (BugType)comboBox_bugType.SelectedIndex, line);
 				}
 			}
 		}
