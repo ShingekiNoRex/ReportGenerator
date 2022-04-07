@@ -423,13 +423,13 @@ namespace ReportGenerator
 				sw.WriteLine("Tests executed in: ");
 				foreach (BuildInfo buildInfo in _selectedBuildInfo)
 				{
-					sw.WriteLine(string.Format("{0} - {1}:", buildInfo.ToString(), buildInfo.platform));
+					sw.WriteLine(string.Format("{0} - {1}", buildInfo.ToString(), buildInfo.platform));
 				}
 				sw.WriteLine();
 
 				foreach (var testingItem in _testingItems)
 				{
-					sw.WriteLine(testingItem.category.title);
+					sw.WriteLine(testingItem.category.title + ":");
 
 					int[] taskCount = new int[4], taskTime = new int[4];
 					foreach (var task in testingItem.tasks)
@@ -468,7 +468,7 @@ namespace ReportGenerator
 								sw.WriteLine(string.Format(" - {0} {1} ({2}m)", taskCount[i], (TaskResult)i, taskTime[i]));
 						}
 
-						sw.WriteLine(string.Format("- {0} Total ({1}m)", totalTaskUnderOneTitle, totalTimeUnderOneTitle));
+						sw.WriteLine(string.Format(" - {0} Total ({1}m)", totalTaskUnderOneTitle, totalTimeUnderOneTitle));
 						totalStandardCount += totalTaskUnderOneTitle;
 						totalTimeUnderOneTitle += totalTimeUnderOneTitle;
 					}
