@@ -46,12 +46,12 @@ namespace ReportGenerator
 
 		private void OnSelectedIndexChanged(object sender, EventArgs e)
 		{
-			checkBox_pc.Enabled = true;
-			checkBox_android.Enabled = true;
-			checkBox_ios.Enabled = true;
-
 			if (checkedListBox_buildInfo.SelectedItem is BuildInfo selectedBuild)
 			{
+				checkBox_pc.Enabled = true;
+				checkBox_android.Enabled = true;
+				checkBox_ios.Enabled = true;
+
 				checkBox_pc.Checked = (selectedBuild.platform & Platform.PC) > 0;
 				checkBox_android.Checked = (selectedBuild.platform & Platform.Android) > 0;
 				checkBox_ios.Checked = (selectedBuild.platform & Platform.iOS) > 0;

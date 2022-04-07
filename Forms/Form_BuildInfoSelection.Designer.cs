@@ -61,7 +61,6 @@ namespace ReportGenerator
 			// 
 			// checkedListBox_buildInfo
 			// 
-			this.checkedListBox_buildInfo.CheckOnClick = true;
 			this.checkedListBox_buildInfo.FormattingEnabled = true;
 			this.checkedListBox_buildInfo.Location = new System.Drawing.Point(12, 49);
 			this.checkedListBox_buildInfo.Name = "checkedListBox_buildInfo";
