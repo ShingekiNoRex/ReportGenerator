@@ -50,18 +50,20 @@ namespace ReportGenerator
 			checkBox_android.Enabled = true;
 			checkBox_ios.Enabled = true;
 
-			BuildInfo selectedBuild = checkedListBox_buildInfo.SelectedItem as BuildInfo;
-			checkBox_pc.Checked = (selectedBuild.platform & Platform.PC) > 0;
-			checkBox_android.Checked = (selectedBuild.platform & Platform.Android) > 0;
-			checkBox_ios.Checked = (selectedBuild.platform & Platform.iOS) > 0;
+			if (checkedListBox_buildInfo.SelectedItem is BuildInfo selectedBuild)
+			{
+				checkBox_pc.Checked = (selectedBuild.platform & Platform.PC) > 0;
+				checkBox_android.Checked = (selectedBuild.platform & Platform.Android) > 0;
+				checkBox_ios.Checked = (selectedBuild.platform & Platform.iOS) > 0;
 
-			label_platform.Text = "Platform: " + selectedBuild.ToString();
+				label_platform.Text = "Platform: " + selectedBuild.ToString();
+			}
 		}
 
 		private void OnPlatformSelected(object sender, EventArgs e)
 		{
-			BuildInfo selectedBuild = checkedListBox_buildInfo.SelectedItem as BuildInfo;
-			selectedBuild.platform = (checkBox_pc.Checked ? Platform.PC : 0) | (checkBox_android.Checked ? Platform.Android : 0) | (checkBox_ios.Checked ? Platform.iOS : 0);
+			if (checkedListBox_buildInfo.SelectedItem is BuildInfo selectedBuild)
+				selectedBuild.platform = (checkBox_pc.Checked ? Platform.PC : 0) | (checkBox_android.Checked ? Platform.Android : 0) | (checkBox_ios.Checked ? Platform.iOS : 0);
 		}
 	}
 }
