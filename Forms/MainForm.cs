@@ -489,7 +489,7 @@ namespace ReportGenerator
 				sw.WriteLine("Time spent on build downloading and installation: " + textBox_installTime.Text + "m");
 				sw.WriteLine("Time spent on non-standard tests: " + totalNonStandardTime + "m");
 
-				sw.WriteLine(string.Format("Number of standard tests executed: {0} (1)", totalStandardCount, totalStandardTime));
+				sw.WriteLine(string.Format("Number of standard tests executed: {0} ({1}m)", totalStandardCount, totalStandardTime));
 				for (int i = 0; i < 4; i++)
 				{
 					if (totalStandardTasksWithResult[i] > 0)
