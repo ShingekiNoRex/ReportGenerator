@@ -6,6 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Authors>ShingekiNoRex</Authors>
     <ApplicationIcon>ReportGenerator.ico</ApplicationIcon>
+    <Version>1.9</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
