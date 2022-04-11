@@ -11,7 +11,7 @@ namespace ReportGenerator
 {
 	public partial class MainForm : Form
 	{
-		public const string Version = "1.8";
+		public const string Version = "1.9";
 
 		public BuildInfo[] BuildInfoCollection;
 		public Category[] CategoriesCollection;
@@ -455,22 +455,25 @@ namespace ReportGenerator
 
 					if (!testingItem.category.isExploratory)
 					{
-						int totalTaskUnderOneTitle = 0, totalTimeUnderOneTitle = 0;
-						sw.WriteLine("Summary:");
-						for (int i = 0; i < 4; i++)
+						if (testingItem.tasks.Count > 0)
 						{
-							totalTaskUnderOneTitle += taskCount[i];
-							totalTimeUnderOneTitle += taskTime[i];
-							totalStandardTasksWithResult[i] += taskCount[i];
-							totalStandardTimeWithResult[i] += taskTime[i];
+							int totalTaskUnderOneTitle = 0, totalTimeUnderOneTitle = 0;
+							sw.WriteLine("Summary:");
+							for (int i = 0; i < 4; i++)
+							{
+								totalTaskUnderOneTitle += taskCount[i];
+								totalTimeUnderOneTitle += taskTime[i];
+								totalStandardTasksWithResult[i] += taskCount[i];
+								totalStandardTimeWithResult[i] += taskTime[i];
 
-							if (taskCount[i] > 0)
-								sw.WriteLine(string.Format(" - {0} {1} ({2}m)", taskCount[i], (TaskResult)i, taskTime[i]));
+								if (taskCount[i] > 0)
+									sw.WriteLine(string.Format(" - {0} {1} ({2}m)", taskCount[i], (TaskResult)i, taskTime[i]));
+							}
+
+							sw.WriteLine(string.Format(" - {0} Total ({1}m)", totalTaskUnderOneTitle, totalTimeUnderOneTitle));
+							totalStandardCount += totalTaskUnderOneTitle;
+							totalStandardTime += totalTimeUnderOneTitle;
 						}
-
-						sw.WriteLine(string.Format(" - {0} Total ({1}m)", totalTaskUnderOneTitle, totalTimeUnderOneTitle));
-						totalStandardCount += totalTaskUnderOneTitle;
-						totalStandardTime += totalTimeUnderOneTitle;
 					}
 					else
 						for (int i = 0; i < 4; i++)
@@ -482,6 +485,8 @@ namespace ReportGenerator
 						foreach (var bug in testingItem.bugs)
 							sw.WriteLine(string.Format("{0} ({1})", bug.link, bug.type.ToString()));
 					}
+					else
+						sw.WriteLine("No major issues encountered.");
 
 					sw.WriteLine();
 				}
@@ -844,7 +849,7 @@ namespace ReportGenerator
 
 		private int[] CalculateBugAmount()
 		{
-			int[] bugAmount = new int[3];
+			int[] bugAmount = new int[4];
 			foreach (var testingItem in _testingItems)
 				foreach (var bug in testingItem.bugs)
 					bugAmount[(int)bug.type]++;
