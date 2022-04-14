@@ -14,6 +14,8 @@ namespace ReportGenerator
 				foreach (BuildInfo buildInfo in FormReference.MainForm.BuildInfoCollection)
 				{
 					checkedListBox_buildInfo.Items.Add(buildInfo, selectedBuilds.Contains(buildInfo));
+					if (buildInfo.platform == 0)
+						buildInfo.platform = Platform.PC;
 				}
 			}
 		}
@@ -25,7 +27,25 @@ namespace ReportGenerator
 
 		private void OnOk(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
+			if (checkedListBox_buildInfo.CheckedItems.Count <= 0)
+			{
+				MessageBox.Show("You need to select a build!", "Missing build");
+				return;
+			}
+
+			foreach (var checkedItem in checkedListBox_buildInfo.CheckedItems)
+			{
+				if (checkedItem is BuildInfo checkedBuild)
+				{
+					if (checkedBuild.platform != 0)
+					{
+						this.DialogResult = DialogResult.OK;
+						return;
+					}
+				}
+			}
+
+			MessageBox.Show("You need to select a platform!", "Missing platform");
 		}
 
 		private void OnAddBuild(object sender, EventArgs e)
