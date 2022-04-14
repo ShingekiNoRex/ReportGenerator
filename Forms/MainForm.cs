@@ -11,7 +11,7 @@ namespace ReportGenerator
 {
 	public partial class MainForm : Form
 	{
-		public const string Version = "1.9";
+		public const string Version = "1.10";
 
 		public BuildInfo[] BuildInfoCollection;
 		public Category[] CategoriesCollection;
@@ -823,6 +823,10 @@ namespace ReportGenerator
 							BuildInfoCollection.CopyTo(newCollection, 0);
 							newCollection[BuildInfoCollection.Length] = buildInfo;
 							BuildInfoCollection = newCollection;
+						}
+						else
+						{
+							BuildInfoCollection[buildInfoIndex].platform |= buildInfo.platform;
 						}
 					}
 				}
