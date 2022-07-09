@@ -40,6 +40,7 @@ namespace ReportGenerator
 					}
 
 					dataGridView_csv.DataSource = CSVTable;
+					button_addTask.Enabled = true;
 				}
 				catch (Exception ex)
 				{
@@ -50,6 +51,9 @@ namespace ReportGenerator
 
 		private void AddTask_OnClick(object sender, EventArgs e)
 		{
+			if (CSVTable == null)
+				return;
+
 			if (string.IsNullOrWhiteSpace(comboBox_title.Text))
 			{
 				MessageBox.Show("Missing title.", "Error");

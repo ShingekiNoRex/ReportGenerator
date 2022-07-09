@@ -32,7 +32,7 @@ namespace ReportGenerator
 			this.dataGridView_csv = new System.Windows.Forms.DataGridView();
 			this.label_title = new System.Windows.Forms.Label();
 			this.comboBox_title = new System.Windows.Forms.ComboBox();
-			this.button__loadCSV = new System.Windows.Forms.Button();
+			this.button_loadCSV = new System.Windows.Forms.Button();
 			this.button_addTask = new System.Windows.Forms.Button();
 			this.openFileDialog_csv = new System.Windows.Forms.OpenFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView_csv)).BeginInit();
@@ -65,18 +65,19 @@ namespace ReportGenerator
 			this.comboBox_title.Size = new System.Drawing.Size(325, 25);
 			this.comboBox_title.TabIndex = 11;
 			// 
-			// button__loadCSV
+			// button_loadCSV
 			// 
-			this.button__loadCSV.Location = new System.Drawing.Point(359, 29);
-			this.button__loadCSV.Name = "button__loadCSV";
-			this.button__loadCSV.Size = new System.Drawing.Size(150, 33);
-			this.button__loadCSV.TabIndex = 12;
-			this.button__loadCSV.Text = "Load CSV Table";
-			this.button__loadCSV.UseVisualStyleBackColor = true;
-			this.button__loadCSV.Click += new System.EventHandler(this.LoadCSV_OnClick);
+			this.button_loadCSV.Location = new System.Drawing.Point(359, 29);
+			this.button_loadCSV.Name = "button_loadCSV";
+			this.button_loadCSV.Size = new System.Drawing.Size(150, 33);
+			this.button_loadCSV.TabIndex = 12;
+			this.button_loadCSV.Text = "Load CSV Table";
+			this.button_loadCSV.UseVisualStyleBackColor = true;
+			this.button_loadCSV.Click += new System.EventHandler(this.LoadCSV_OnClick);
 			// 
 			// button_addTask
 			// 
+			this.button_addTask.Enabled = false;
 			this.button_addTask.Location = new System.Drawing.Point(527, 29);
 			this.button_addTask.Name = "button_addTask";
 			this.button_addTask.Size = new System.Drawing.Size(150, 33);
@@ -96,7 +97,7 @@ namespace ReportGenerator
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(692, 450);
 			this.Controls.Add(this.button_addTask);
-			this.Controls.Add(this.button__loadCSV);
+			this.Controls.Add(this.button_loadCSV);
 			this.Controls.Add(this.comboBox_title);
 			this.Controls.Add(this.label_title);
 			this.Controls.Add(this.dataGridView_csv);
@@ -114,7 +115,7 @@ namespace ReportGenerator
 		private System.Windows.Forms.DataGridView dataGridView_csv;
 		private System.Windows.Forms.Label label_title;
 		public System.Windows.Forms.ComboBox comboBox_title;
-		private System.Windows.Forms.Button button__loadCSV;
+		private System.Windows.Forms.Button button_loadCSV;
 		private System.Windows.Forms.Button button_addTask;
 		private System.Windows.Forms.OpenFileDialog openFileDialog_csv;
 	}
