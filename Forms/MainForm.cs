@@ -21,7 +21,7 @@ namespace ReportGenerator
 		private List<TestingItem> _testingItems = new List<TestingItem>();
 		private List<BuildInfo> _selectedBuildInfo = new List<BuildInfo>();
 
-		private readonly Color[] _resultColor = { Color.Green, Color.Red, Color.Gold, Color.Orange };
+		private readonly Color[] _resultColor = { Color.Green, Color.Red, Color.Gold, Color.Orange, Color.Purple };
 
 		public MainForm()
 		{

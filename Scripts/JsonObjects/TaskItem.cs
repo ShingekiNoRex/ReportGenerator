@@ -5,7 +5,8 @@
 		Pass = 0,
 		Failed,
 		Retest,
-		Blocked
+		Blocked,
+		Dropped
 	}
 
 	public class TaskItem

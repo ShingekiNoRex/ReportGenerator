@@ -171,7 +171,8 @@ namespace ReportGenerator
             "Pass",
             "Failed",
             "Retest",
-            "Blocked"});
+            "Blocked",
+            "Dropped"});
 			this.comboBox_result.Location = new System.Drawing.Point(12, 169);
 			this.comboBox_result.Name = "comboBox_result";
 			this.comboBox_result.Size = new System.Drawing.Size(181, 25);
