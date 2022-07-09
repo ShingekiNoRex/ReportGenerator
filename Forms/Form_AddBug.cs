@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ReportGenerator
@@ -73,6 +74,28 @@ namespace ReportGenerator
 						FormReference.MainForm.AddBug(selectedTitle, (BugType)comboBox_bugType.SelectedIndex, line);
 				}
 			}
+		}
+
+		private void OnDrawItem(object sender, DrawItemEventArgs e)
+		{
+			ComboBox combo = sender as ComboBox;
+			string text = combo.Items[e.Index].ToString();
+			Brush brush = Brushes.Black;
+
+			if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+			{
+				brush = Brushes.White;
+				toolTip_title.Show(text, combo, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height);
+			}
+
+			e.DrawBackground();
+			e.Graphics.DrawString(text, combo.Font, brush, e.Bounds.X, e.Bounds.Y);
+			e.DrawFocusRectangle();
+		}
+
+		private void OnDropDownClosed(object sender, EventArgs e)
+		{
+			toolTip_title.Hide(comboBox_title);
 		}
 	}
 }

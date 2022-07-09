@@ -29,6 +29,7 @@ namespace ReportGenerator
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.label_bugType = new System.Windows.Forms.Label();
 			this.label_link = new System.Windows.Forms.Label();
 			this.comboBox_bugType = new System.Windows.Forms.ComboBox();
@@ -37,6 +38,7 @@ namespace ReportGenerator
 			this.label_title = new System.Windows.Forms.Label();
 			this.button_add = new System.Windows.Forms.Button();
 			this.button_cancel = new System.Windows.Forms.Button();
+			this.toolTip_title = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// label_bugType
@@ -84,11 +86,14 @@ namespace ReportGenerator
 			// 
 			// comboBox_title
 			// 
+			this.comboBox_title.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.comboBox_title.FormattingEnabled = true;
 			this.comboBox_title.Location = new System.Drawing.Point(12, 32);
 			this.comboBox_title.Name = "comboBox_title";
-			this.comboBox_title.Size = new System.Drawing.Size(230, 25);
+			this.comboBox_title.Size = new System.Drawing.Size(230, 24);
 			this.comboBox_title.TabIndex = 12;
+			this.comboBox_title.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OnDrawItem);
+			this.comboBox_title.DropDownClosed += new System.EventHandler(this.OnDropDownClosed);
 			// 
 			// label_title
 			// 
@@ -154,5 +159,6 @@ namespace ReportGenerator
 		private System.Windows.Forms.Label label_title;
 		private System.Windows.Forms.Button button_add;
 		private System.Windows.Forms.Button button_cancel;
+		private System.Windows.Forms.ToolTip toolTip_title;
 	}
 }
