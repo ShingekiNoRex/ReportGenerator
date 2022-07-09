@@ -42,6 +42,7 @@ namespace ReportGenerator
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.hyperlinkRetrieverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.CSVRetrieverMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label_date = new System.Windows.Forms.Label();
@@ -73,7 +74,6 @@ namespace ReportGenerator
 			this.saveFileDialog_json = new System.Windows.Forms.SaveFileDialog();
 			this.openFileDialog_json = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog_txt = new System.Windows.Forms.SaveFileDialog();
-			this.CSVRetrieverMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuStrip.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -181,16 +181,23 @@ namespace ReportGenerator
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.optionsToolStripMenuItem.Text = "&Options";
 			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.Options_OnClick);
 			// 
 			// hyperlinkRetrieverToolStripMenuItem
 			// 
 			this.hyperlinkRetrieverToolStripMenuItem.Name = "hyperlinkRetrieverToolStripMenuItem";
-			this.hyperlinkRetrieverToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+			this.hyperlinkRetrieverToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.hyperlinkRetrieverToolStripMenuItem.Text = "Hyperlink Retriever";
 			this.hyperlinkRetrieverToolStripMenuItem.Click += new System.EventHandler(this.HyperlinkRetriever_OnClick);
+			// 
+			// CSVRetrieverMenuItem
+			// 
+			this.CSVRetrieverMenuItem.Name = "CSVRetrieverMenuItem";
+			this.CSVRetrieverMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.CSVRetrieverMenuItem.Text = "CSV Retriever";
+			this.CSVRetrieverMenuItem.Click += new System.EventHandler(this.CSVRetriever_OnClick);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -516,13 +523,6 @@ namespace ReportGenerator
 			// 
 			this.saveFileDialog_txt.Filter = "Text File|*.txt";
 			this.saveFileDialog_txt.RestoreDirectory = true;
-			// 
-			// CSVRetrieverMenuItem
-			// 
-			this.CSVRetrieverMenuItem.Name = "CSVRetrieverMenuItem";
-			this.CSVRetrieverMenuItem.Size = new System.Drawing.Size(187, 22);
-			this.CSVRetrieverMenuItem.Text = "CSV Retriever";
-			this.CSVRetrieverMenuItem.Click += new System.EventHandler(this.CSVRetriever_OnClick);
 			// 
 			// MainForm
 			// 
