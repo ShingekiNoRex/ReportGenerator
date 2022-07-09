@@ -437,7 +437,7 @@ namespace ReportGenerator
 						taskCount[(int)task.result]++;
 						taskTime[(int)task.result] += task.time;
 
-						if (task.result != TaskResult.Pass || testingItem.category.isExploratory)
+						if (task.result != TaskResult.Passed || testingItem.category.isExploratory)
 						{
 							if (!string.IsNullOrWhiteSpace(task.defects))
 							{
@@ -536,7 +536,7 @@ namespace ReportGenerator
 
 		#region Public Methods
 
-		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Pass, string defects = "", string comment = "", string reporter = "")
+		public void AddTask(Category category, string content, int time, TaskResult result = TaskResult.Passed, string defects = "", string comment = "", string reporter = "")
 		{
 			if (string.IsNullOrWhiteSpace(content))
 				return;

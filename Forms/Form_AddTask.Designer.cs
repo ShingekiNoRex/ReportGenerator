@@ -168,7 +168,7 @@ namespace ReportGenerator
 			this.comboBox_result.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_result.FormattingEnabled = true;
 			this.comboBox_result.Items.AddRange(new object[] {
-            "Pass",
+            "Passed",
             "Failed",
             "Retest",
             "Blocked",

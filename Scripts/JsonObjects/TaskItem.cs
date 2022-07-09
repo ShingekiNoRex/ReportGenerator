@@ -2,7 +2,7 @@
 {
 	public enum TaskResult
 	{
-		Pass = 0,
+		Passed = 0,
 		Failed,
 		Retest,
 		Blocked,
@@ -18,7 +18,7 @@
 		public int time;
 		public TaskResult result;
 
-		public TaskItem(string content, int time, string reporter, TaskResult result = TaskResult.Pass, string defects = "", string comment = "")
+		public TaskItem(string content, int time, string reporter, TaskResult result = TaskResult.Passed, string defects = "", string comment = "")
 		{
 			this.content = content;
 			this.time = time;
