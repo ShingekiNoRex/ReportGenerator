@@ -10,5 +10,7 @@ namespace ReportGenerator
 		public static Form_AddBug AddBugForm { get; set; }
 
 		public static Form_HyperlinkRetriever HyperlinkRetrieverForm { get; set; }
+
+		public static Form_CSVRetriever CSVRetrieverForm { get; set; }
 	}
 }

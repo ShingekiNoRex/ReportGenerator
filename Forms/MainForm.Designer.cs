@@ -73,6 +73,7 @@ namespace ReportGenerator
 			this.saveFileDialog_json = new System.Windows.Forms.SaveFileDialog();
 			this.openFileDialog_json = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog_txt = new System.Windows.Forms.SaveFileDialog();
+			this.CSVRetrieverMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuStrip.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -171,7 +172,8 @@ namespace ReportGenerator
 			// 
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
-            this.hyperlinkRetrieverToolStripMenuItem});
+            this.hyperlinkRetrieverToolStripMenuItem,
+            this.CSVRetrieverMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
 			this.toolsToolStripMenuItem.Text = "&Tools";
@@ -179,14 +181,14 @@ namespace ReportGenerator
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
 			this.optionsToolStripMenuItem.Text = "&Options";
 			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.Options_OnClick);
 			// 
 			// hyperlinkRetrieverToolStripMenuItem
 			// 
 			this.hyperlinkRetrieverToolStripMenuItem.Name = "hyperlinkRetrieverToolStripMenuItem";
-			this.hyperlinkRetrieverToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.hyperlinkRetrieverToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
 			this.hyperlinkRetrieverToolStripMenuItem.Text = "Hyperlink Retriever";
 			this.hyperlinkRetrieverToolStripMenuItem.Click += new System.EventHandler(this.HyperlinkRetriever_OnClick);
 			// 
@@ -515,6 +517,13 @@ namespace ReportGenerator
 			this.saveFileDialog_txt.Filter = "Text File|*.txt";
 			this.saveFileDialog_txt.RestoreDirectory = true;
 			// 
+			// CSVRetrieverMenuItem
+			// 
+			this.CSVRetrieverMenuItem.Name = "CSVRetrieverMenuItem";
+			this.CSVRetrieverMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.CSVRetrieverMenuItem.Text = "CSV Retriever";
+			this.CSVRetrieverMenuItem.Click += new System.EventHandler(this.CSVRetriever_OnClick);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -592,6 +601,7 @@ namespace ReportGenerator
 		private System.Windows.Forms.Button button_saveAsJson;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.Panel panel3;
+		private System.Windows.Forms.ToolStripMenuItem CSVRetrieverMenuItem;
 	}
 }
 

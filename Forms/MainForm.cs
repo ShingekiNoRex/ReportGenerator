@@ -186,6 +186,19 @@ namespace ReportGenerator
 			}
 		}
 
+		private void CSVRetriever_OnClick(object sender, EventArgs e)
+		{
+			if (FormReference.CSVRetrieverForm == null)
+			{
+				FormReference.CSVRetrieverForm = new Form_CSVRetriever();
+				FormReference.CSVRetrieverForm.Show();
+			}
+			else if (!FormReference.CSVRetrieverForm.Visible)
+				FormReference.CSVRetrieverForm.Show();
+			else
+				FormReference.CSVRetrieverForm.Activate();
+		}
+
 		private void ToDate_OnValueChanged(object sender, EventArgs e)
 		{
 			if (DateTime.Compare(dateTimePicker_from.Value, dateTimePicker_to.Value) > 0)
