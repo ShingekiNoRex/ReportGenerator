@@ -135,6 +135,7 @@ namespace ReportGenerator
 			this.MinimumSize = new System.Drawing.Size(686, 413);
 			this.Name = "Form_CSVRetriever";
 			this.Text = "CSV Retriever";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView_csv)).EndInit();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);

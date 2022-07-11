@@ -26,6 +26,12 @@ namespace ReportGenerator
 			}
 		}
 
+		private void OnFormClosing(object sender, FormClosingEventArgs e)
+		{
+			e.Cancel = true;
+			this.Hide();
+		}
+
 		private void LoadCSV_OnClick(object sender, System.EventArgs e)
 		{
 			if (openFileDialog_csv.ShowDialog() == DialogResult.OK)
