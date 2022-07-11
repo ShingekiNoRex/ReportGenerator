@@ -5,7 +5,8 @@
 		New = 0,
 		Reopened,
 		Closed,
-		Encountered
+		Encountered,
+		End
 	}
 
 	public class BugItem

@@ -425,11 +425,12 @@ namespace ReportGenerator
 
 			if (saveFileDialog_txt.ShowDialog() == DialogResult.OK)
 			{
-				int[] totalStandardTasksWithResult = new int[4], totalStandardTimeWithResult = new int[4];
+				int[] totalStandardTasksWithResult = new int[(int)TaskResult.End], totalStandardTimeWithResult = new int[(int)TaskResult.End];
 				int totalStandardCount = 0, totalStandardTime = 0;
 				int totalNonStandardTime = 0;
 				int[] bugAmount = CalculateBugAmount();
-				Regex reg = new Regex(@ConfigSettings.GlobalSettings["DefectsRegex"]);
+				Regex defectsReg = new Regex(@ConfigSettings.GlobalSettings["DefectsRegex"]);
+				Regex taskReg = new Regex(@ConfigSettings.GlobalSettings["TaskRegex"]);
 
 				StreamWriter sw = new StreamWriter(saveFileDialog_txt.FileName, false);
 				sw.WriteLine(dateTimePicker_from.Text.Equals(dateTimePicker_to.Text) ? dateTimePicker_from.Text : dateTimePicker_from.Text + " - " + dateTimePicker_to.Text);
@@ -444,7 +445,7 @@ namespace ReportGenerator
 				{
 					sw.WriteLine(testingItem.category.title + ":");
 
-					int[] taskCount = new int[4], taskTime = new int[4];
+					int[] taskCount = new int[(int)TaskResult.End], taskTime = new int[(int)TaskResult.End];
 					foreach (var task in testingItem.tasks)
 					{
 						taskCount[(int)task.result]++;
@@ -452,17 +453,25 @@ namespace ReportGenerator
 
 						if (task.result != TaskResult.Passed || testingItem.category.isExploratory)
 						{
+							string content = task.content;
+							Match taskMatch = taskReg.Match(task.content);
+							if (taskMatch != null)
+							{
+								content = string.Format("[{0}|{1}{2}]", taskMatch.Value, ConfigSettings.GlobalSettings["TaskLink"], taskMatch.Value.TrimStart('T'));
+							}
+							
+
 							if (!string.IsNullOrWhiteSpace(task.defects))
 							{
 								string defects = "";
-								foreach (Match match in reg.Matches(task.defects))
+								foreach (Match defectsMatch in defectsReg.Matches(task.defects))
 								{
-									defects = string.Format("{0} [{1}|{2}{1}]", defects, match.Value, ConfigSettings.GlobalSettings["DefectsLink"]);
+									defects = string.Format("{0} [{1}|{2}{1}]", defects, defectsMatch.Value, ConfigSettings.GlobalSettings["DefectsLink"]);
 								}
-								sw.WriteLine(string.Format("{0} ({1}) {2}m {3} {4}", task.content, task.result, task.time, defects, task.comment));
+								sw.WriteLine(string.Format("{0} ({1}) {2}m {3} {4}", content, task.result, task.time, defects, task.comment));
 							}
 							else
-								sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", task.content, task.result, task.time, task.comment));
+								sw.WriteLine(string.Format("{0} ({1}) {2}m {3}", content, task.result, task.time, task.comment));
 						}
 					}
 
@@ -472,7 +481,7 @@ namespace ReportGenerator
 						{
 							int totalTaskUnderOneTitle = 0, totalTimeUnderOneTitle = 0;
 							sw.WriteLine("Summary:");
-							for (int i = 0; i < 4; i++)
+							for (int i = 0; i < (int)TaskResult.End; i++)
 							{
 								totalTaskUnderOneTitle += taskCount[i];
 								totalTimeUnderOneTitle += taskTime[i];
@@ -489,7 +498,7 @@ namespace ReportGenerator
 						}
 					}
 					else
-						for (int i = 0; i < 4; i++)
+						for (int i = 0; i < (int)TaskResult.End; i++)
 							totalNonStandardTime += taskTime[i];
 
 					if (testingItem.bugs.Count > 0)
@@ -508,7 +517,7 @@ namespace ReportGenerator
 				sw.WriteLine("Time spent on non-standard tests: " + totalNonStandardTime + "m");
 
 				sw.WriteLine(string.Format("Number of standard tests executed: {0} ({1}m)", totalStandardCount, totalStandardTime));
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < (int)TaskResult.End; i++)
 				{
 					if (totalStandardTasksWithResult[i] > 0)
 						sw.WriteLine(string.Format(" - {0} {1} ({2}m)", totalStandardTasksWithResult[i], (TaskResult)i, totalStandardTimeWithResult[i]));
@@ -866,7 +875,7 @@ namespace ReportGenerator
 
 		private int[] CalculateBugAmount()
 		{
-			int[] bugAmount = new int[4];
+			int[] bugAmount = new int[(int)BugType.End];
 			foreach (var testingItem in _testingItems)
 				foreach (var bug in testingItem.bugs)
 					bugAmount[(int)bug.type]++;

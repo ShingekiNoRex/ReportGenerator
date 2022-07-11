@@ -6,7 +6,8 @@
 		Failed,
 		Retest,
 		Blocked,
-		Dropped
+		Dropped,
+		End
 	}
 
 	public class TaskItem
