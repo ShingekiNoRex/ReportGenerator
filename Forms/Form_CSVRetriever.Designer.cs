@@ -38,6 +38,7 @@ namespace ReportGenerator
 			this.openFileDialog_csv = new System.Windows.Forms.OpenFileDialog();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.button_loadFromClipboard = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView_csv)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -50,7 +51,7 @@ namespace ReportGenerator
 			this.dataGridView_csv.Location = new System.Drawing.Point(6, 66);
 			this.dataGridView_csv.Name = "dataGridView_csv";
 			this.dataGridView_csv.RowTemplate.Height = 25;
-			this.dataGridView_csv.Size = new System.Drawing.Size(658, 302);
+			this.dataGridView_csv.Size = new System.Drawing.Size(805, 302);
 			this.dataGridView_csv.TabIndex = 0;
 			// 
 			// label_title
@@ -84,7 +85,7 @@ namespace ReportGenerator
 			// button_addTask
 			// 
 			this.button_addTask.Enabled = false;
-			this.button_addTask.Location = new System.Drawing.Point(508, 21);
+			this.button_addTask.Location = new System.Drawing.Point(654, 21);
 			this.button_addTask.Name = "button_addTask";
 			this.button_addTask.Size = new System.Drawing.Size(150, 31);
 			this.button_addTask.TabIndex = 13;
@@ -110,29 +111,40 @@ namespace ReportGenerator
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(670, 374);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(817, 374);
 			this.tableLayoutPanel1.TabIndex = 14;
 			// 
 			// panel1
 			// 
 			this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.panel1.Controls.Add(this.button_loadFromClipboard);
 			this.panel1.Controls.Add(this.label_title);
 			this.panel1.Controls.Add(this.comboBox_title);
 			this.panel1.Controls.Add(this.button_addTask);
 			this.panel1.Controls.Add(this.button_loadCSV);
 			this.panel1.Location = new System.Drawing.Point(6, 6);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(658, 54);
+			this.panel1.Size = new System.Drawing.Size(805, 54);
 			this.panel1.TabIndex = 11;
+			// 
+			// button_loadFromClipboard
+			// 
+			this.button_loadFromClipboard.Location = new System.Drawing.Point(498, 21);
+			this.button_loadFromClipboard.Name = "button_loadFromClipboard";
+			this.button_loadFromClipboard.Size = new System.Drawing.Size(150, 31);
+			this.button_loadFromClipboard.TabIndex = 14;
+			this.button_loadFromClipboard.Text = "Load from Clipboard";
+			this.button_loadFromClipboard.UseVisualStyleBackColor = true;
+			this.button_loadFromClipboard.Click += new System.EventHandler(this.LoadFromClipboard_OnClick);
 			// 
 			// Form_CSVRetriever
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(670, 374);
+			this.ClientSize = new System.Drawing.Size(817, 374);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(686, 413);
+			this.MinimumSize = new System.Drawing.Size(833, 413);
 			this.Name = "Form_CSVRetriever";
 			this.Text = "CSV Retriever";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
@@ -154,5 +166,6 @@ namespace ReportGenerator
 		private System.Windows.Forms.OpenFileDialog openFileDialog_csv;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Button button_loadFromClipboard;
 	}
 }

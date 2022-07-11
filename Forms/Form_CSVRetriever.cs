@@ -55,6 +55,26 @@ namespace ReportGenerator
 			}
 		}
 
+		private void LoadFromClipboard_OnClick(object sender, System.EventArgs e)
+		{
+			try
+			{
+				CSVTable = CSVRetriever.RetrieveTableFromClipboard();
+				if (CSVTable == null)
+				{
+					MessageBox.Show("Failed to validate table from clipboard.", "Error");
+					return;
+				}
+
+				dataGridView_csv.DataSource = CSVTable;
+				button_addTask.Enabled = true;
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("Failed to load table from clipboard: " + ex);
+			}
+		}
+
 		private void AddTask_OnClick(object sender, EventArgs e)
 		{
 			if (CSVTable == null)

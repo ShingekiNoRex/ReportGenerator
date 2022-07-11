@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ReportGenerator
 {
@@ -52,6 +53,47 @@ namespace ReportGenerator
 				return null;
 			}
 		}
+
+        public static DataTable RetrieveTableFromClipboard()
+		{
+            try
+            {
+                string tempText = Clipboard.GetText();
+                if (string.IsNullOrWhiteSpace(tempText))
+                    return null;
+
+                DataTable dt = new DataTable();
+
+                bool isFirst = true;
+                foreach (string line in tempText.Trim().Split('\n'))
+				{
+                    string[] arr = line.Split('\t');
+                    if (isFirst)
+					{
+                        foreach (string str in arr)
+                            dt.Columns.Add(str);
+
+                        if (!dt.Columns.Contains("ID") || !dt.Columns.Contains("Comment") || !dt.Columns.Contains("Elapsed") || !dt.Columns.Contains("Defects") || !dt.Columns.Contains("Status"))
+                            return null;
+
+                        isFirst = false;
+					}
+                    else
+					{
+                        DataRow dr = dt.NewRow();
+                        for (int i = 0; i < dt.Columns.Count; i++)
+                            dr[i] = i < arr.Length ? arr[i] : "";
+
+                        dt.Rows.Add(dr);
+                    }
+				}
+                return dt;
+            }
+            catch
+			{
+                return null;
+			}
+        }
 
         private static string[] CSVstrToArray(string splitStr)
         {
