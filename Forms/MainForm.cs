@@ -455,7 +455,7 @@ namespace ReportGenerator
 						{
 							string content = task.content;
 							Match taskMatch = taskReg.Match(task.content);
-							if (taskMatch != null)
+							if (taskMatch != null && !string.IsNullOrWhiteSpace(taskMatch.Value))
 							{
 								content = string.Format("[{0}|{1}{2}]", taskMatch.Value, ConfigSettings.GlobalSettings["TaskLink"], taskMatch.Value.TrimStart('T'));
 							}
