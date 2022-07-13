@@ -85,7 +85,10 @@ namespace ReportGenerator
 			if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
 			{
 				brush = Brushes.White;
-				toolTip_title.Show(text, combo, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height);
+				if (Screen.GetBounds(new Point(0, 0)).Bottom - PointToScreen(combo.Location).Y - combo.Height < combo.Items.Count * combo.ItemHeight)
+					toolTip_title.Show(text, combo, e.Bounds.X + e.Bounds.Width, e.Bounds.Y - combo.Items.Count * e.Bounds.Height);
+				else
+					toolTip_title.Show(text, combo, e.Bounds.X + e.Bounds.Width, e.Bounds.Y + e.Bounds.Height);
 			}
 
 			e.DrawBackground();
