@@ -11,7 +11,7 @@ namespace ReportGenerator
 {
 	public partial class MainForm : Form
 	{
-		public const string Version = "1.13";
+		public const string Version = "1.14";
 
 		public BuildInfo[] BuildInfoCollection;
 		public Category[] CategoriesCollection;
